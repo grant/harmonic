@@ -25,6 +25,8 @@ function UIViewModel() {
 	var LEFT = 37;
 	var RIGHT = 39;
 
+	$('body').append($('<div class="dragging"></div>'));
+
 	//janky
 	var oldPlaylistButtonWidth = $('.playlistButton').width();
 	var oldPlaylistButtonHeight = $('.playlistButton').height();
@@ -147,6 +149,7 @@ function UIViewModel() {
 		} else if(e.which == RIGHT) {
 			toPlaylist();
 		}
+		return true;
 	});
 
 	$('.left.arrow').click(function () {
@@ -169,6 +172,26 @@ function UIViewModel() {
 		}
 	});
 
+    $(document).mousemove(function(e) {
+    	console.log(e);
+        $('.dragging').css({
+            top: e.pageY,
+            left: e.pageX
+        });
+    });
+
+
+    $('body').on("mousedown", ".song", function () {
+        $('.dragging').append($(this).clone());
+        return false;
+    });
+
+    $('body').on("mouseup", function (e) {
+    	console.log('test');
+        $('.dragging').html('');
+        return false;
+    });
+
 	$('.playlistButton').mouseleave(function() {
 		$(this).stop();
 		if($('.playlistButton').hasClass('opened')) {
@@ -177,9 +200,9 @@ function UIViewModel() {
 		}
 	});
 
-	$('body').on('click','.song', function() {
-		clickPlaylistSong($(this));
-	});
+	// $('body').on('click','.song', function() {
+	// 	clickPlaylistSong($(this));
+	// });
 
 	/**
 	 *
