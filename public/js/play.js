@@ -66,7 +66,5 @@ $(function () {
   // on page load, get and play something
   playNext();
 
-var socket = io.connect();
-console.log('playing song');
-
+  var socket = io.connect();
 });
