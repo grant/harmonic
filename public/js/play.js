@@ -72,7 +72,7 @@ $(function () {
           img.addClass("current");
         }
         $(".underlay > .centerContent > .photo").html(img);
-        audioElem.volume = 0;
+        audioElem.volume = 1;
         audioElem.play();
       } else {
         playNext();
@@ -129,8 +129,14 @@ $(function () {
   playNext();
 
   var socket = io.connect();
+  var idIsValid = false;
   socket.on('connected', function (data) {
     socket.emit('identification', $('.accessToken').text());
+  });
+
+  socket.on('identification', function (success) {
+    idIsValid = success;
+    socket.emit('updatePlaylist');
   });
 
   socket.on('updateFriends', function (data) {
