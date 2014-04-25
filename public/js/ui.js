@@ -202,7 +202,7 @@ function UIViewModel() {
     	if($('.playlistButton').hasClass('opened') && dragging != null) {
     		clickPlaylistSong(dragging);
     	} else if ($('.friend.active-drop').length > 0 && dragging != null) {
-    		dragAndDropped($('.friend.active-drop')[0], dragging);
+    		dragAndDropped($($('.friend.active-drop')[0]), dragging);
     	}
     	dragging = null;
     	$('.friend').removeClass('active-drop');
