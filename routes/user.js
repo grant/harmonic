@@ -33,17 +33,6 @@ exports.getOnlineUsers = function (callback) {
     User.find({online:true}, callback);
 };
 
-/**
- * Gets friend data of online friends who have non-empty playlists
- */
-exports.getFriendData = function (fbId, callback) {
-    User.find({
-        fbId: fbId,
-        playlist: {$not: {$size: 0}},
-        online: true
-    }, callback);
-};
-
 /*
 	Get friends that are logged in
  */
