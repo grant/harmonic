@@ -16,7 +16,7 @@ exports.addSong = function(req, res) {
 			User.findOne({'_id': req.user._id}, function(err, user) {
 				res.json({
 					'response': 'OK',
-					'user': user
+					'tracks': user.playlist
 				});
 			});
 		});
@@ -37,7 +37,7 @@ exports.removeSong = function(req, res) {
 			User.findOne({'_id': req.user._id}, function(err, user) {
 				res.json({
 					'response': 'OK',
-					'user': user
+					'tracks': user.playlist
 				});
 			});
 		});
