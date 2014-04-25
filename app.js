@@ -15,6 +15,23 @@ var express = require('express'),       // the main ssjs framework
     app = express(),                    // create an express app
     RedisStore = require('connect-redis')(express); // for persistent sessions
 
+// Socket.IO
+var server = require('http').createServer(app);
+var io = require('socket.io').listen(server);
+
+io.configure('production', function(){
+  io.enable('browser client minification');  // send minified client
+  io.enable('browser client etag');          // apply etag caching logic based on version number
+  io.enable('browser client gzip');          // gzip the file
+  io.set('log level', 1);                    // reduce logging
+  // enable all transports (optional if you want flashsocket)
+  io.set('transports', [ 'websocket', 'flashsocket', 'htmlfile', 'xhr-polling', 'jsonp-polling']);
+});
+
+io.sockets.on('connection', function (socket) {
+  console.log('hi');
+});
+
 /*
     Configure environments
 */
@@ -87,19 +104,14 @@ app.get('/logout', auth.requiresLogin, user.logout);
 // social signin
 // Passport redirects to a facebook login and we ask only for email
 app.get('/auth/facebook', passport.authenticate("facebook", {scope:'email'}));
-app.get('/auth/facebook/callback',
-    passport.authenticate('facebook', { failureRedirect: '/auth/error' }),
-        function(req, res) {
-            // Successful authentication, redirect home.;
-            res.render('index', { success: 'true' });
-    });
+app.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/auth/error' }), routes.authSuccess);
+app.get('/auth/error', routes.authError);
 
-app.get('/auth/error', function(req, res) {
-    res.render('index', { success: 'false' });
-});
 app.get('/nextsong', auth.requiresLogin, queue.nextSong);
+app.post('/recommendsong', auth.requiresLogin, queue.recommend);
 
 // Playlist endpoints
+app.get('/playlist', auth.requiresLogin, playlist.getAll);
 app.post('/playlist', auth.requiresLogin, playlist.addSong);
 app.del('/playlist', auth.requiresLogin, playlist.removeSong);
 app.post('/playlist/share', auth.requiresLogin, playlist.share);

@@ -2,7 +2,10 @@ $(function() {
     "use strict";
 
     $("#fb").hide().delay(200).fadeIn("slow");
-    $("#fb").click(login);
+    $("#fb").click(function () {
+        // Login
+        location.href = '/auth/facebook';
+    });
     $("#fb").hover(
         function() {
             $(this).stop().animate({"opacity": "0.65"}, "slow");
@@ -30,9 +33,4 @@ $(function() {
             }, 700);
         }
     );
-
-
-    var login = function() {
-        // Login Stuff goes here
-    };
 });

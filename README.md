@@ -32,7 +32,30 @@ Returns 5 next songs in the queue.
 		]
 	}
 
+`POST /recommendsong`
+
+Send a song recommendation to a different user.
+
+**Parameters:**
+
+`toUserFb` - Facebook user ID of the person who the song is being recommended to
+`songURL` - SoundCloud URL of the song
+
+Result: None. Just status code `200`.
+
 ## Playlist interaction:
+
+### Get all tracks in playlist
+
+`GET /playlist`
+
+(Requires authenticated user)
+
+Returns:
+
+	{
+    	"tracks": [url1, url2, ...]
+	}
 
 ### Add song
 

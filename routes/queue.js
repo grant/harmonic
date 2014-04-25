@@ -9,7 +9,8 @@ function getTracks(callback) {
         var tracks = [];
         body = JSON.parse(body);
         for (var i = 0; i < body.length; i++) {
-            tracks.push(body[i].uri);
+            var track = { songUrl: body[i].uri, byName: '' };
+            tracks.push(track);
         }
         callback(tracks);
     });
@@ -48,4 +49,23 @@ exports.nextSong = function(req, res) {
             });
         }
     });
+}
+
+// recommends a song to a music by adding 
+exports.recommend = function(req, res, next) {
+    var toFbId = req.body.toUserFb;
+    var songUrl = req.body.songURL;
+
+    var url = "https://graph.facebook.com/" + toFbId +"?fields=name";
+    request(url, function(err, resp, body) {
+        body = JSON.parse(body);
+        var name = body.name;
+        User.findOne({fbId: toFbId}, function(err, user) {
+            user.queue.push({ songUrl: songUrl, byName: name });
+            user.save(function(err, newUser) {
+                res.send(200);
+            });
+        });
+    });
+
 }
