@@ -255,6 +255,7 @@ function UIViewModel() {
 		          	console.log(lastGesture);
 		          }
 		          lastGesture = swipeDirection;
+		          
 		          break;
 		       }
 		     }
