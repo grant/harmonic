@@ -9,7 +9,40 @@ exports.logout = function(req, res) {
     res.json({
         'response': 'OK'
     });
-}
+};
+
+/*
+
+    Get user from access token
+ */
+exports.getUserFromToken = function(token, callback) {
+    User.findOne({accessToken : token}, callback);
+};
+
+/*
+Sets if the user is online
+ */
+exports.setOnline = function (userId, isOnline) {
+    User.update({'_id' : userId}, {online: isOnline});
+};
+
+/**
+ * Gets all users that are online
+ */
+exports.getOnlineUsers = function (callback) {
+    User.find({online:true}, callback);
+};
+
+/**
+ * Gets friend data of online friends who have non-empty playlists
+ */
+exports.getFriendData = function (fbId, callback) {
+    User.find({
+        fbId: fbId,
+        playlist: {$not: {$size: 0}},
+        online: true
+    }, callback);
+};
 
 /*
 	Get friends that are logged in

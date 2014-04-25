@@ -8,13 +8,16 @@ exports.index = function (req, res){
 };
 
 exports.play = function (req, res) {
-  if (!req.user)
+  if (!req.user) {
   	res.redirect('/');
-  else
-	res.render('play', {
-	  		title: 'Play -- Harmonic',
-	        name: req.user.name, 
-	        photo: req.user.photo});
+  } else {
+  	res.render('play', {
+  		title: 'Play -- Harmonic',
+      name: req.user.name,
+      photo: req.user.photo,
+      accessToken: req.user.accessToken
+    });
+  }
 };
 
 exports.authError = function(req, res) {

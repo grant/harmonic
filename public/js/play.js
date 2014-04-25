@@ -93,9 +93,10 @@ $(function () {
   }
 
   function getTrackDetails(t, callback) {
-    url = t.replace("tracks/", "tracks.json?")+"&client_id="+client_id;
+    // url = t.replace("tracks/", "tracks.json?")+"&client_id="+client_id;
+    url = t+".json?consumer_key="+client_id;
     $.get(url, function(data) {
-      callback(data[0]);
+      callback(data);
     });
   }
 
@@ -114,8 +115,8 @@ $(function () {
   }
 
   ui.addBinds({
-  	onLeft : playNext,
-  	onRight : saveTrack,
+    onLeft : playNext,
+    onRight : saveTrack,
     onPlaylistEnter : updateTrackList,
     onClickPlaylistSong : function(clicked) {
       var url = clicked.data('url');
@@ -128,7 +129,6 @@ $(function () {
 
   var socket = io.connect();
   socket.on('connected', function (data) {
-    socket.emit('updatePlaylist');
     socket.emit('identification', $('.accessToken').text());
   });
 

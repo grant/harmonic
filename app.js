@@ -28,27 +28,43 @@ io.configure('production', function(){
   io.set('transports', [ 'websocket', 'flashsocket', 'htmlfile', 'xhr-polling', 'jsonp-polling']);
 });
 
-var onlineUsers = {};
+var socketToUserData = {};
 var lastUpdateTime = (new Date()).getTime();
 io.sockets.on('connection', function (socket) {
   console.log('connected');
   socket.emit('connected');
 
+  // Sets up the user data
+  socket.on('identification', function (accessToken) {
+    user.getUserFromToken(accessToken, function (err, data) {
+      socketToUserData[socket] = data;
+      user.setOnline(data._id, true);
+    });
+  });
+
   // When the playlist is updated
   socket.on('updatePlaylist', function () {
     // updatePlaylist
     var thisUpdateTime = (new Date()).getTime();
-    if (lastUpdateTime - thisUpdateTime > 1000) {
-      // For each user, update the data
-      for (var fbId in onlineUsers) {
-        var userSocket = onlineUsers[fbId];
-        userSocket.emit('updateFriends', getFriendData(fbId, Object.keys(onlineUsers)));
-      }
+    if (thisUpdateTime - lastUpdateTime > 1000) {
+      lastUpdateTime = thisUpdateTime;
+      // Get the online users
+      user.getOnlineUsers(function (onlineUsers) {
+        console.log(onlineUsers);
+        console.log(socketToUserData);
+        console.log('-----');
+        // For each user, update the data
+        for (var thisSocket in socketToUserData) {
+          var thisUser = socketToUserData[thisSocket];
+          thisSocket.emit('updateFriends', user.getFriendData(thisUser.fbId, onlineUsers));
+        }
+      });
     }
   });
 
   socket.on('disconnect', function () {
-    console.log('disconnected');
+    var userData = socketToUserData[socket];
+    user.setOnline(userData._id, false);
   });
 });
 
