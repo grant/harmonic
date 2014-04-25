@@ -63,7 +63,7 @@ $(function () {
         progressJs(".progress").set(0);
         $('#widget').attr('src', sound.stream_url + '?client_id=' + client_id);
         $('#song-title').html(sound.title);
-        $('#song-author').html('By <a href="' + sound.user.uri + '">' + sound.user.username + '</a>');
+        $('#song-author').html('By <a href="' + sound.user.permalink_url + '">' + sound.user.username + '</a>');
         if (sound.artwork_url) {
           var img = $('<img/>').attr('src', sound.artwork_url.replace("large", "crop"));
           img.addClass("current");
