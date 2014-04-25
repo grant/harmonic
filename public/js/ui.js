@@ -129,6 +129,7 @@ function UIViewModel() {
 		for (var i = 0; i < bindings.onRight.length; i++) {
 			bindings.onClickPlaylistSong[i](clicked);
 		}		
+		closePlaylist();
 	};
 
 	/**
