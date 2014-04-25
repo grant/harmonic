@@ -1,6 +1,6 @@
 $(function () {
 
-  // initUI();
+  var ui = initUI();
 
   var client_id = '2aaf60470a34d42b0561e92b17ec7ce2';
   var currentQueue = []; // holds the queue of songs
