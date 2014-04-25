@@ -31,24 +31,31 @@ function UIViewModel() {
 	};
 
 	var completeFly = function() {
-		for (var i = 0; i < bindings.onRight.length; i++) {
+		for (var i = 0; i < bindings.onFlyComplete.length; i++) {
 			bindings.onFlyComplete[i]();
 		}
 	};
 
 	var flyLeft = function() {
 		$('.flyAway').show();
-		$('.flyAway').fadeOut('slow', completeFly);
+		$('.flyAway').animate({
+			opacity: 0.0,
+			left: "-=50"
+		}, 500, completeFly);
 	};
 
 	var flyRight = function() {
 		$('.flyAway').show();
-		$('.flyAway').fadeOut('slow', completeFly);
+		$('.flyAway').animate({
+			opacity: 0.0,
+			left: "+=50"
+		}, 500, completeFly);
 	};
 
 	var toTrash = function() {
 		prepFly();
 		for (var i = 0; i < bindings.onRight.length; i++) {
+			//console.log(typeof bindings.onRight[i]);
 			bindings.onRight[i]();
 		}
 		flyLeft();
@@ -56,7 +63,8 @@ function UIViewModel() {
 
 	var toPlaylist = function() {
 		prepFly();
-		for (var i = 0; i < bindings.onRight.length; i++) {
+		for (var i = 0; i < bindings.onLeft.length; i++) {
+			//console.log(typeof bindings.onRight[i]);
 			bindings.onLeft[i]();
 		}
 		flyRight();
@@ -98,7 +106,13 @@ function UIViewModel() {
 	 */
 
 	self.addBinds = function(passed) {
-		$.extend(true, bindings, passed);
+		if (typeof passed.onLeft != 'undefined')
+			bindings.onLeft.push(passed.onLeft);
+		if (typeof passed.onRight != 'undefined')
+			bindings.onRight.push(passed.onRight);
+		if (typeof passed.onFlyComplete != 'undefined')
+			bindings.onFlyComplete.push(passed.onFlyComplete);
+		//console.log(bindings);
 	}
 
 }
