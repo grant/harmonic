@@ -173,7 +173,6 @@ function UIViewModel() {
 	});
 
     $(document).mousemove(function(e) {
-    	console.log(e);
         $('.dragging').css({
             top: e.pageY,
             left: e.pageX
@@ -186,8 +185,8 @@ function UIViewModel() {
         return false;
     });
 
-    $('body').on("mouseup", function (e) {
-    	console.log('test');
+    $('body').on("mouseup", function () {
+    	console.log($(this));
         $('.dragging').html('');
         return false;
     });
