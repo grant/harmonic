@@ -25,6 +25,7 @@ function UIViewModel() {
 	var LEFT = 37;
 	var RIGHT = 39;
 
+	var dragging = null;
 	$('body').append($('<div class="dragging"></div>'));
 
 	//janky
@@ -174,20 +175,28 @@ function UIViewModel() {
 
     $(document).mousemove(function(e) {
         $('.dragging').css({
-            top: e.pageY,
-            left: e.pageX
+            top: e.pageY + 20,
+            left: e.pageX + 20
         });
     });
 
 
     $('body').on("mousedown", ".song", function () {
+    	$('.dragging').show();
+    	$('.dragging').width($(this).width());
+    	$('.dragging').height($(this).height());
         $('.dragging').append($(this).clone());
+        dragging = $(this);
         return false;
     });
 
     $('body').on("mouseup", function () {
-    	console.log($(this));
-        $('.dragging').html('');
+    	$('.dragging').html('');
+    	if($('.playlistButton').hasClass('opened') && dragging != null) {
+    		clickPlaylistSong($(this));
+    	}
+    	dragging = null;
+    	$('.dragging').hide();
         return false;
     });
 
