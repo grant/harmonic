@@ -225,14 +225,6 @@ function UIViewModel() {
 		      var gesture = frame.gestures[i];
 
 		      switch (gesture.type) {
-		        case "circle":
-		              gestureString += "<br>ID: " + gesture.id + "<br>type: " + gesture.type + ", "
-		                        + "<br>center: " + vectorToString(gesture.center) + " mm, "
-		                        + "<br>normal: " + vectorToString(gesture.normal, 2) + ", "
-		                        + "<br>radius: " + gesture.radius.toFixed(1) + " mm, "
-		                        + "<br>progress: " + gesture.progress.toFixed(2) + " rotations"
-		                        + "<br>";
-		            break;
 		        case "swipe":
 		          //Classify swipe as either horizontal or vertical
 		          var isHorizontal = Math.abs(gesture.direction[0]) > Math.abs(gesture.direction[1]);
