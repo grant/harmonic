@@ -79,7 +79,7 @@ $(function () {
     $.get('/playlist', function(data) {
       $('.likedSongs').html('');
       for(var i = 0; i < data.tracks.length; i++) {
-        $('.likedSongs').append('<li class="song">' + data.tracks[i] + '<img src="/images/default.png" class="albumPhoto" /></li>');
+        $('.likedSongs').append('<li class="song" data-url="' + data.tracks[i] + '"><span class="name">' + data.tracks[i] + '</span><img src="/images/default.png" class="albumPhoto" /></li>');
       }
     });
   }
@@ -89,7 +89,7 @@ $(function () {
     $.post('/playlist', {'songURL' : currentURL}, function(data) {
       $('.likedSongs').html('');
       for(var i = 0; i < data.tracks.length; i++) {
-        $('.likedSongs').append('<li class="song"><span class="name">' + data.tracks[i] + '</span><img src="/images/default.png" class="albumPhoto" /></li>');
+        $('.likedSongs').append('<li class="song" data-url="' +data.tracks[i] + '"><span class="name">' + data.tracks[i] + '</span><img src="/images/default.png" class="albumPhoto" /></li>');
       }
     });
     playNext();
