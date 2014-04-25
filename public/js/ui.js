@@ -222,10 +222,10 @@ function UIViewModel() {
 		    if(swipe.state === 'stop'){
 		        if (swipe.direction[0] > 0){
 		            //this means that the swipe is to the right direction
-		            console.log("moveRight();");
+		            toPlaylist();
 		        }else{
 		            //this means that the swipe is to the left direction
-		            console.log("moveLeft();");
+		           	toTrash();
 		        }
 		    }
 		}
