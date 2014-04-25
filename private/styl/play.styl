@@ -7,8 +7,17 @@
     padding 20px
     width 120px
   ul.friends
+    position: absolute
     bottom 0
+    width 100%
+    height 100px
     text-align center
+    .friend
+      width 100px
+      height 100px
+      background-color blue
+      display: inline-block
+      margin 0 10px
 .underlay
   background-color gray
   text-align: center
@@ -24,6 +33,7 @@
       height 100%
       width arrowWidth
       color beige
+      cursor pointer
       charWidth = 25px
       font-size charWidth
       charPadding = 10px
