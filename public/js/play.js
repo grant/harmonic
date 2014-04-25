@@ -27,8 +27,8 @@ $(function () {
     if (curTime >= starttimeoffset + duration) {
       $(".photo").addClass("stopped");
       $(".progressjs-progress").hide();
-        $('.animate')[0].attr('dur', '50s');
-        $('.animate')[1].attr('dur', '30s');
+        $('#animated-1').attr('dur', '50s');
+        $('#animated-2').attr('dur', '30s');
       // playNext();
     }
     var diff = curTime - starttimeoffset;
@@ -57,8 +57,8 @@ $(function () {
     SC.get(url, {}, function(sound, error) {
       if (sound.stream_url) {
         $(".photo").removeClass("stopped");
-        $('.animate')[0].attr('dur', '3s');
-        $('.animate')[1].attr('dur', '1.8s');
+        $('#animated-1')[0].attr('dur', '3s');
+        $('#animated-2')[1].attr('dur', '1.8s');
         $(".progressjs-progress").show();
         progressJs(".progress").set(0);
         $('#widget').attr('src', sound.stream_url + '?client_id=' + client_id);
