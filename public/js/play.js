@@ -115,6 +115,7 @@ $(function () {
   var socket = io.connect();
   socket.on('connected', function (data) {
     socket.emit('updatePlaylist');
+    socket.emit('identification', $('.accessToken').text());
   });
 
   socket.on('updateFriends', function (data) {
