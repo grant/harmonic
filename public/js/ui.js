@@ -193,7 +193,7 @@ function UIViewModel() {
     $('body').on("mouseup", function () {
     	$('.dragging').html('');
     	if($('.playlistButton').hasClass('opened') && dragging != null) {
-    		clickPlaylistSong($(this));
+    		clickPlaylistSong(dragging);
     	}
     	dragging = null;
     	$('.dragging').hide();
