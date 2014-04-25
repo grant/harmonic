@@ -28,8 +28,23 @@ io.configure('production', function(){
   io.set('transports', [ 'websocket', 'flashsocket', 'htmlfile', 'xhr-polling', 'jsonp-polling']);
 });
 
+var onlineUsers = {};
 io.sockets.on('connection', function (socket) {
-  console.log('hi');
+  console.log('connected');
+  socket.emit('connected');
+
+  // When the playlist is updated
+  socket.on('updatePlaylist', function () {
+    // updatePlaylist
+    console.log('hello there');
+  });
+
+  socket.on('disconnect', function () {
+    console.log('disconnected');
+    io.sockets.emit('someone disconnected', {
+      numUsers: io.sockets.clients().length,
+    });
+  });
 });
 
 /*
@@ -85,7 +100,6 @@ app.configure(function(){
     app.use(app.router);
 });
 
-
 // development only
 if ('development' == app.get('env')) {
     app.use(express.errorHandler());
@@ -125,7 +139,7 @@ require('./config/pass.js')(passport);
 
 
 // Creates the server and has socets listen to it
-// app.listen(app.get('port')), { log: false};
+// app.listen(app.get('port'), { log: false});
 server.listen(app.get('port'));
 
 console.log('Express server listening on port ' + app.get('port'));

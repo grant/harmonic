@@ -154,13 +154,20 @@ function UIViewModel() {
 		toPlaylist();
 	});
 
-	$('.playlistButton').click(function() {
+	$('.playlistButton').mouseenter(function() {
 		$(this).stop();
-		$('.playlistButton').toggleClass('opened')
-		if(!$('.playlistButton').hasClass('opened'))
-			closePlaylist();
-		else
+		if(!$('.playlistButton').hasClass('opened')) {
+			$('.playlistButton').toggleClass('opened');
 			popOpenPlaylist();
+		}
+	});
+
+	$('.playlistButton').mouseleave(function() {
+		$(this).stop();
+		if($('.playlistButton').hasClass('opened')) {
+			$('.playlistButton').toggleClass('opened');
+			closePlaylist();
+		}
 	});
 
 	/**

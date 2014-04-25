@@ -42,13 +42,33 @@ body
       height 100%
       width 18px
       .playlistBody
+        overflow-y scroll
         display none
         width 100%
         height 100%
+        ul.likedSongs
+          height 100%
+          li.song
+            &:hover
+              background-color blue
+            cursor pointer
+            padding 10px
+            margin-bottom 5px
+            height 50px
+            img
+              width 50px
+              height 50px
+              float right
+            span.name
+              color white
+              position relative
+              top 15px
+          
       .char
         font-size 35px
         position absolute
         top 49%
+
   .logo
     top 0
     left 0

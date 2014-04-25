@@ -66,7 +66,7 @@ $(function () {
           var img = $('<img/>').attr('src', "/images/default.png");
           img.addClass("current");
         }
-        $(".underlay > .centerContent > .photo").html(img)
+        $(".underlay > .centerContent > .photo").html(img);
         audioElem.volume = 0;
         audioElem.play();
       } else {
@@ -104,4 +104,7 @@ $(function () {
   playNext();
 
   var socket = io.connect();
+  socket.on('connected', function (data) {
+    socket.emit('updatePlaylist');
+  });
 });
