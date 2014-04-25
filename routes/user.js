@@ -45,13 +45,11 @@ exports.getOnlineUsers = function (callback) {
 /*
 	Get friends that are logged in
  */
-exports.getLastTracks = function(req, res) {
-    var thisUser = req.user;
+exports.getLastTracks = function(thisUser, callback) {
     var result = [];
 
     // find all online users
     User.find({online: true}, function(err, users) {
-        // return res.send(users);
         var added = 0;
         for (var i = 0; i < users.length; i++) {
             var friendInDb = false;
@@ -61,8 +59,6 @@ exports.getLastTracks = function(req, res) {
                     friendInDb = true;
                 }
             }
-
-            // console.log(friendInDb);
 
             if (friendInDb) {
                 // console.log(otherUser.name);
@@ -76,24 +72,24 @@ exports.getLastTracks = function(req, res) {
                         ++added;
                         if (added === users.length) {
                             // console.log("first");
-                            return res.send(result);
+                            return callback(null, result);
                         }
                     } else {
                         ++added;
                         if (added === users.length) {
-                            return res.send(result);
+                            return callback(null, result);
                         }
                     }
                 });
             } else {
                 ++added;
                 if (added === users.length) {
-                    return res.send(result);
+                    return callback(null, result);
                 }
             }
         }
     });
-}
+};
 
 
 function getOneOnlineFriend(otherUser, callback) {
@@ -108,18 +104,23 @@ function getOneOnlineFriend(otherUser, callback) {
             var url = "https://api.soundcloud.com/resolve.json?consumer_key=2aaf60470a34d42b0561e92b17ec7ce2&url=" + lastTrack;
             request(url, function(err, resp, body) {
                 body = JSON.parse(body);
-                // console.log(body);
-                // request(body.location, function(err, r, body) {
-                    // body = JSON.parse(body);
-                    artwork = body.artwork_url;
-                    onlineFriend.lastTrack = lastTrack;
-                    onlineFriend.artwork = artwork || '/images/default.png';
-                    // console.log("in " + onlineFriend);
-                    callback(onlineFriend);
-                // });
+                artwork = body.artwork_url;
+                onlineFriend.lastTrack = lastTrack;
+                onlineFriend.artwork = artwork || '/images/default.png';
+                callback(onlineFriend);
             });
         } else {
             callback(null);
         }
     });
 }
+
+exports.getLastTracksURL = function (req, res) {
+    if (req.user) {
+        exports.getLastTracks(req.user, function(err, data) {
+            return res.send(data);
+        });
+    } else {
+        return res.send(['Error: No tracks received.']);
+    }
+};
