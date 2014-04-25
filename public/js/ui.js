@@ -209,6 +209,7 @@ function UIViewModel() {
 	});
 
 	if(Leap) {
+		var lastGesture = "";
 		// Store frame for motion functions
 		var previousFrame = null;
 
@@ -250,12 +251,10 @@ function UIViewModel() {
 		                  swipeDirection = "down";
 		              }                  
 		          }
-		          gestureString += "<br>ID: " + gesture.id + "<br>type: " + gesture.type + ", "
-		                        + "<br>direction " + swipeDirection
-		                        + "<br>gesture.direction vector: " + vectorToString(gesture.direction, 2) + ", "
-		                        + "<br>";
-
-		          console.log(swipeDirection);
+		          if(lastGesture != swipeDirection && lastGesture != '') {
+		          	console.log(lastGesture);
+		          }
+		          lastGesture = swipeDirection;
 		          break;
 		       }
 		     }
