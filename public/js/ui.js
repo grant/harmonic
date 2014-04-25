@@ -255,8 +255,12 @@ function UIViewModel() {
 		          	console.log(lastGesture);
 		          }
 		          lastGesture = swipeDirection;
-		          
+
 		          break;
+		       }
+
+		       if(gesture.type != 'swipe') {
+		       		console.log(lastGesture);
 		       }
 		     }
 		  }
