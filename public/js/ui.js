@@ -25,8 +25,8 @@ function UIViewModel() {
 	var RIGHT = 39;
 
 	//janky
-	var playlistButtonWidth = $('.playlistButton').width();
-	var playlistButtonHeight = $('.playlistButton').height();
+	// var playlistButtonWidth = $('.playlistButton').width();
+	// var playlistButtonHeight = $('.playlistButton').height();
 
 	var prepFly = function() {
 		$('.flyAway').remove();
@@ -88,22 +88,22 @@ function UIViewModel() {
 		for (var i = 0; i < bindings.onPlaylistEnter.length; i++) {
 			bindings.onPlaylistEnter[i]();
 		}
-		$('.playlistBody').show();
-		$('.playlistButton').animate({
-			width: "500px",
-			height: "500px"
-		}, 500, completeFly);
+		// $('.playlistBody').show();
+		// $('.playlistButton').animate({
+		// 	width: "500px",
+		// 	height: "500px"
+		// }, 500, completeFly);
 	};
 
 	var closePlaylist = function() {
 		for (var i = 0; i < bindings.onPlaylistLeave.length; i++) {
 			bindings.onPlaylistLeave[i]();
 		}
-		$('.playlistBody').hide();
-		$('.playlistButton').animate({
-			width: playlistButtonWidth + 'px',
-			height: playlistButtonHeight + 'px'
-		}, 500);
+		// $('.playlistBody').hide();
+		// $('.playlistButton').animate({
+		// 	width: playlistButtonWidth + 'px',
+		// 	height: playlistButtonHeight + 'px'
+		// }, 500);
 	};
 
 	/**
