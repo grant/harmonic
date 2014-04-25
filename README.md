@@ -19,24 +19,32 @@ If user has previously logged in then returns the user profile else redirects to
 ## Playlist interaction:
 
 `POST /playlist`
+
 (Requires authenticated user)
+
 Adds a song to the users playlist.
 
 Form needed:
+
     songURL: url of a soundcloud song
 
 Returns
+
 	{
 		'response' : 'OK'
 		'user' : {...}
 	}
 
 `DELETE /playlist`
+
 (Requires authenticated user)
+
 Form needed:
+
     songURL: url of a soundcloud song
 
 Returns
+
 	{
 		'response' : 'OK'
 		'user' : {...}
