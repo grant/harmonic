@@ -31,6 +31,7 @@ function UIViewModel() {
 	};
 
 	var completeFly = function() {
+		$('.flyAway').remove();
 		for (var i = 0; i < bindings.onFlyComplete.length; i++) {
 			bindings.onFlyComplete[i]();
 		}
