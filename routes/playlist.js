@@ -7,7 +7,7 @@ var User = require('./../models/user');
 exports.addSong = function(req, res) {
 	User.update(
 		{'_id' : req.user._id},
-		{ $push: { 
+		{ $addToSet: { 
 			playlist : req.body.songURL
 		} }, 
 		function(err) {
