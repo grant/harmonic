@@ -117,8 +117,12 @@ $(function () {
   }
 
   function sendRecommendation(target, src) {
-    console.log(target);
-    console.log(src);
+    var songUri = src.data('url');
+    var fId = target.data('fbid');
+    console.log(songUri + ', ' + fId);
+    // $.post('/recommendsong', {'songURL' : songUri, 'toUserFb' : 'fId'}, function(data) {
+    //   alert("Recommended song successfully!");
+    // });
   }
 
   ui.addBinds({
