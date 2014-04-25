@@ -118,7 +118,7 @@ $(function () {
     var songUri = src.data('url');
     var fId = target.data('fbid');
     console.log('RECOMMEND TO ' + songUri + ', ' + fId);
-    $.post('/recommendsong', {'songURL' : songUri, 'toUserFb' : 'fId'}, function(data) {
+    $.post('/recommendsong', {'songURL' : songUri, 'toUserFb' : fId}, function(data) {
       alert("Recommended song successfully!");
     });
   }
