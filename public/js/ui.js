@@ -279,7 +279,7 @@ function UIViewModel() {
 		if (typeof passed.onClickPlaylistSong != 'undefined')
 			bindings.onClickPlaylistSong.push(passed.onClickPlaylistSong);
 		if (typeof passed.onDropped != 'undefined')
-			bindings.onClickPlaylistSong.push(passed.onDropped);
+			bindings.onDropped.push(passed.onDropped);
 		//console.log(bindings);
 	}
 
