@@ -3,6 +3,9 @@ $(function () {
   var ui = initUI();
 
   var client_id = '2aaf60470a34d42b0561e92b17ec7ce2';
+  var starttimeoffset = 30; // what time do we skip to?
+  var duration = 20; // duration of track
+
   var currentQueue = []; // holds the queue of songs
   var audioElem = $("#widget")[0];
 
@@ -11,11 +14,17 @@ $(function () {
     client_id: client_id
   });
 
-  // on page load, get and play something
-  playNext();
+  audioElem.addEventListener("canplay", function() { 
+    audioElem.currentTime = starttimeoffset;
+  }, true);
 
+  audioElem.addEventListener("timeupdate", function() { 
+    if (audioElem.currentTime >= starttimeoffset + duration) {
+      playNext();
+    }
+  }, true);
 
-  function playNext() {
+  var playNext = function() {
     // update the audio tag source
     if (currentQueue.length == 0) {
       // empty queue, get more songs
@@ -23,23 +32,32 @@ $(function () {
         currentQueue = data.tracks;
         // play the first song
         var url = currentQueue.pop().songUrl;
-        SC.get(url, {}, function(sound, error) {
-          $('#widget').attr('src', sound.stream_url + '?client_id=' + client_id);
-          audioElem.play();
-        });
+        playOne(url);
       });
     } else {
       var url = currentQueue.pop().songUrl;
-      SC.get(url, {}, function(sound, error) {
+      playOne(url);
+    }
+  }
+
+  function playOne(url) {
+    SC.get(url, {}, function(sound, error) {
+      if (sound.stream_url) {
         $('#widget').attr('src', sound.stream_url + '?client_id=' + client_id);
         audioElem.play();
-      });
-    }
+      } else {
+        playNext();
+      }
+    });
   }
 
   $(".arrow").click(function() {
     playNext();
   });
+
+
+  // on page load, get and play something
+  playNext();
 
 var socket = io.connect();
 console.log('playing song');

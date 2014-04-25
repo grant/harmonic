@@ -16,5 +16,9 @@ exports.authError = function(req, res) {
 };
 
 exports.authSuccess = function(req, res) {
-  res.render('index', { success: 'true' });
+  res.render('index', {
+        success: 'true', 
+        name: req.user.name, 
+        photo: req.user.photo
+    });
 };
