@@ -98,7 +98,11 @@ $(function () {
   ui.addBinds({
   	onLeft : playNext,
   	onRight : saveTrack,
-    onPlaylistEnter : updateTrackList
+    onPlaylistEnter : updateTrackList,
+    onClickPlaylistSong : function(clicked) {
+      var url = clicked.data('url');
+      playOne(url);
+    }
   });
 
   // on page load, get and play something

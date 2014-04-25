@@ -18,7 +18,8 @@ function UIViewModel() {
 		onFlyComplete : [],
 		onAlbumClick : [],
 		onPlaylistEnter : [],
-		onPlaylistLeave : []
+		onPlaylistLeave : [],
+		onClickPlaylistSong : []
 	};
 
 	var LEFT = 37;
@@ -124,6 +125,12 @@ function UIViewModel() {
 		}, 500);
 	};
 
+	var clickPlaylistSong = function(clicked) {
+		for (var i = 0; i < bindings.onRight.length; i++) {
+			bindings.onClickPlaylistSong[i](clicked);
+		}		
+	};
+
 	/**
 	 *
 	 *
@@ -169,6 +176,10 @@ function UIViewModel() {
 		}
 	});
 
+	$('body').on('click','.song', function() {
+		clickPlaylistSong($(this));
+	});
+
 	/**
 	 *
 	 *
@@ -192,6 +203,8 @@ function UIViewModel() {
 			bindings.onPlaylistLeave.push(passed.onPlaylistLeave);
 		if (typeof passed.onPlaylistEnter != 'undefined')
 			bindings.onPlaylistEnter.push(passed.onPlaylistEnter);
+		if (typeof passed.onClickPlaylistSong != 'undefined')
+			bindings.onClickPlaylistSong.push(passed.onClickPlaylistSong);
 		//console.log(bindings);
 	}
 
