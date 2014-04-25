@@ -77,18 +77,18 @@ $(function () {
 
   function updateTrackList() {
     $.get('/playlist', function(data) {
-      $('.likedSong').html('');
+      $('.likedSongs').html('');
       for(var i = 0; i < data.tracks.length; i++) {
-        $('.likedSong').append('<li class="song">' + data.tracks[i] + '</li>');
+        $('.likedSongs').append('<li class="song">' + data.tracks[i] + '<img src="/images/default.png" class="albumPhoto" /></li>');
       }
     });
   }
 
   function saveTrack() {
     $.post('/playlist', {'songURL' : currentURL}, function(data) {
-      $('.likedSong').html('');
+      $('.likedSongs').html('');
       for(var i = 0; i < data.tracks.length; i++) {
-        $('.likedSong').append('<li class="song">' + data.tracks[i] + '</li>');
+        $('.likedSongs').append('<li class="song"><span class="name">' + data.tracks[i] + '</span><img src="/images/default.png" class="albumPhoto" /></li>');
       }
     });
     playNext();
