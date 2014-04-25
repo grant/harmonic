@@ -23,7 +23,9 @@ $(function () {
   audioElem.addEventListener("timeupdate", function() { 
     var curTime = audioElem.currentTime;
     if (curTime >= starttimeoffset + duration) {
-      playNext();
+      $(".photo").addClass("stopped");
+      $(".progressjs-progress").hide();
+      // playNext();
     }
     var diff = curTime - starttimeoffset;
     progressJs(".progress").set((diff/duration)*100);
@@ -35,6 +37,7 @@ $(function () {
       // empty queue, get more songs
       $.get( "/nextsong", function(data) {
         currentQueue = data.tracks;
+        console.log(currentQueue);
         // play the first song
         var url = currentQueue.pop().songUrl;
         playOne(url);
@@ -48,7 +51,9 @@ $(function () {
   function playOne(url) {
     SC.get(url, {}, function(sound, error) {
       if (sound.stream_url) {
-        progressJs(".progress").set(1);
+        $(".photo").removeClass("stopped");
+        $(".progressjs-progress").show();
+        progressJs(".progress").set(0);
         $('#widget').attr('src', sound.stream_url + '?client_id=' + client_id);
         if (sound.artwork_url) {
           var img = $('<img/>').attr('src', sound.artwork_url.replace("large", "crop"));
@@ -56,6 +61,7 @@ $(function () {
           var img = $('<img/>').attr('src', "/images/default.png");
         }
         $(".photo").html(img)
+        audioElem.volume = 0;
         audioElem.play();
       } else {
         playNext();
@@ -67,9 +73,6 @@ $(function () {
   	onLeft : playNext,
   	onRight : playNext
   });
-  // $(".arrow").click(function() {
-  //   playNext();
-  // });
 
   // on page load, get and play something
   playNext();

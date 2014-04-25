@@ -23,9 +23,4 @@ exports.authError = function(req, res) {
 
 exports.authSuccess = function(req, res) {
   res.redirect('/play');
-  // res.render('play', {
-  //       success: 'true', 
-  //       name: req.user.name, 
-  //       photo: req.user.photo
-  //   });
 };
