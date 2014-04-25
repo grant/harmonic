@@ -87,7 +87,7 @@ $(function () {
         // var track = getTrackDetails(data.tracks[i]);
         getTrackDetails(data.tracks[i], function(track) {
           var image = track.artwork_url || '/images/default.png';
-          $('.likedSongs').append('<li class="song" data-url="' + track.uri + '"><span class="name">' + track.title + '</span><img src="' + image + '" class="albumPhoto" /></li>');
+          $('.likedSongs').prepend('<li class="song" data-url="' + track.uri + '"><span class="name">' + track.title + '</span><img src="' + image + '" class="albumPhoto" /></li>');
         });
       }
     });
@@ -160,6 +160,7 @@ $(function () {
 
   socket.on('updateFriends', function (data) {
     $('.friends').html('');
+    data = data.sort();
     for(var i = 0; i < data.length; i++) {
       var imageUrl = 'http://graph.facebook.com/' + data[i].fbId + '/picture';
       $('.friends').append('<div class="friend" data-fbId="' + data[i].fbId + '"><div class="slideArea"><div class="songName">' + data[i].lastTrack + '</div><img src="' + data[i].artwork + '" class="albumPhoto" data-url="' + data[i].lastTrack + '"></div><img src="' + imageUrl + '" class="profilePhoto"></div>');
