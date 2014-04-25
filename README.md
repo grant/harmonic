@@ -18,6 +18,8 @@ If user has previously logged in then returns the user profile else redirects to
 
 ## Playlist interaction:
 
+### Add song
+
 `POST /playlist`
 
 (Requires authenticated user)
@@ -34,6 +36,8 @@ Returns
 		'response' : 'OK'
 		'user' : {...}
 	}
+
+### Remove song
 
 `DELETE /playlist`
 
