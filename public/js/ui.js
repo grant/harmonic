@@ -85,6 +85,13 @@ function UIViewModel() {
 		}
 	});
 
+	$('.left.arrow').click(function () {
+		toTrash();
+	});
+
+	$('.right.arrow').click(function () {
+		toPlaylist();
+	});
 
 	/**
 	 *
