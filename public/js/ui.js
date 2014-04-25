@@ -212,7 +212,6 @@ function UIViewModel() {
 		var controller = new Leap.Controller({enableGestures: true});
 
 		controller.on('gesture', function (gesture){
-		    console.log(gesture);
 		    if(gesture.type === 'swipe'){
 		        handleSwipe(gesture);
 		    }
