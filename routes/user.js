@@ -14,6 +14,12 @@ exports.logout = function(req, res) {
 /*
 	Get friends that are logged in
  */
-exports.getOnlineFriends = function(user) {
+exports.getOnlineFriends = function(user, callback) {
 	var friends = user.friends;
+	User.find({
+		online : true,
+		fbId : {
+			$in : friends
+		}
+	}, callback);
 }
