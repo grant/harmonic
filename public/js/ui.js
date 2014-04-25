@@ -194,8 +194,11 @@ function UIViewModel() {
     	$('.dragging').html('');
     	if($('.playlistButton').hasClass('opened') && dragging != null) {
     		clickPlaylistSong(dragging);
+    	} else if ($('.friend.active-drop').length > 0 && dragging != null) {
+    		console.log($('.friend.active-drop')[0]);
     	}
     	dragging = null;
+    	$('.friend').removeClass('active-drop');
     	$('.dragging').hide();
         return false;
     });
@@ -206,6 +209,16 @@ function UIViewModel() {
 			$('.playlistButton').toggleClass('opened');
 			closePlaylist();
 		}
+	});
+
+	$('.friend').mouseenter(function() {
+		if(dragging != null)
+			$(this).addClass('active-drop');
+	});
+
+
+	$('.friend').mouseleave(function() {
+		$(this).removeClass('active-drop');
 	});
 
 	if(Leap) {
