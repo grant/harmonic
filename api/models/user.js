@@ -26,7 +26,7 @@ var userSchema = new Schema({
 		lowercase: true // force email lowercase
 	},
 	playlists: {
-		type: ObjectId,
+		type: Schema.Types.ObjectId,
 		ref: 'Playlist'
 	},
 	fbId: String

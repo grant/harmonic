@@ -2,7 +2,7 @@
 
 var mongoose = require('mongoose');
 
-var dbURI = process.env.MONGOLAB_URI;
+var dbURI = process.env.MONGOLAB_URI || 'mongodb://dbuser:dbpass@ds031637.mongolab.com:31637/';
 mongoose.connect(dbURI);
 
 // when connected with db
