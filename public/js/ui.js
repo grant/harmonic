@@ -90,17 +90,16 @@ function UIViewModel() {
 
 	var toTrash = function() {
 		prepFly();
-		for (var i = 0; i < bindings.onRight.length; i++) {
-			//console.log(typeof bindings.onRight[i]);
-			bindings.onRight[i]();
+		for (var i = 0; i < bindings.onLeft.length; i++) {
+			bindings.onLeft[i]();
 		}
 		flyLeft();
 	};
 
 	var toPlaylist = function() {
 		prepFly();
-		for (var i = 0; i < bindings.onLeft.length; i++) {
-			bindings.onLeft[i]();
+		for (var i = 0; i < bindings.onRight.length; i++) {
+			bindings.onRight[i]();
 		}
 		flyRight();
 	};

@@ -85,6 +85,7 @@ $(function () {
   }
 
   function saveTrack() {
+    console.log("test");
     $.post('/playlist', {'songURL' : currentURL}, function(data) {
       $('.likedSongs').html('');
       for(var i = 0; i < data.tracks.length; i++) {
