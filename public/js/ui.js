@@ -208,7 +208,7 @@ function UIViewModel() {
 		}
 	});
 
-	if(Leap)
+	if(Leap) {
 		// Store frame for motion functions
 		var previousFrame = null;
 
@@ -262,7 +262,7 @@ function UIViewModel() {
 		  }
 		  
 
-		})
+		});
 
 		function vectorToString(vector, digits) {
 		  if (typeof digits === "undefined") {
