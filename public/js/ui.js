@@ -208,9 +208,71 @@ function UIViewModel() {
 		}
 	});
 
-	// $('body').on('click','.song', function() {
-	// 	clickPlaylistSong($(this));
-	// });
+	if(Leap)
+		// Store frame for motion functions
+		var previousFrame = null;
+
+		// Setup Leap loop with frame callback function
+		var controllerOptions = {enableGestures: true};
+
+		Leap.loop(controllerOptions, function(frame) {
+
+		  // Display Gesture object data
+		  var gestureOutput = document.getElementById("gestureData");
+		  var gestureString = "";
+		  if (frame.gestures.length > 0) {
+		    for (var i = 0; i < frame.gestures.length; i++) {
+		      var gesture = frame.gestures[i];
+
+		      switch (gesture.type) {
+		        case "circle":
+		              gestureString += "<br>ID: " + gesture.id + "<br>type: " + gesture.type + ", "
+		                        + "<br>center: " + vectorToString(gesture.center) + " mm, "
+		                        + "<br>normal: " + vectorToString(gesture.normal, 2) + ", "
+		                        + "<br>radius: " + gesture.radius.toFixed(1) + " mm, "
+		                        + "<br>progress: " + gesture.progress.toFixed(2) + " rotations"
+		                        + "<br>";
+		            break;
+		        case "swipe":
+		          //Classify swipe as either horizontal or vertical
+		          var isHorizontal = Math.abs(gesture.direction[0]) > Math.abs(gesture.direction[1]);
+		          //Classify as right-left or up-down
+		          if(isHorizontal){
+		              if(gesture.direction[0] > 0){
+		                  swipeDirection = "right";
+		              } else {
+		                  swipeDirection = "left";
+		              }
+		          } else { //vertical
+		              if(gesture.direction[1] > 0){
+		                  swipeDirection = "up";
+		              } else {
+		                  swipeDirection = "down";
+		              }                  
+		          }
+		          gestureString += "<br>ID: " + gesture.id + "<br>type: " + gesture.type + ", "
+		                        + "<br>direction " + swipeDirection
+		                        + "<br>gesture.direction vector: " + vectorToString(gesture.direction, 2) + ", "
+		                        + "<br>";
+
+		          console.log(swipeDirection);
+		          break;
+		       }
+		     }
+		  }
+		  
+
+		})
+
+		function vectorToString(vector, digits) {
+		  if (typeof digits === "undefined") {
+		    digits = 1;
+		  }
+		  return "(" + vector[0].toFixed(digits) + ", "
+		             + vector[1].toFixed(digits) + ", "
+		             + vector[2].toFixed(digits) + ")";
+		}
+	}
 
 	/**
 	 *
