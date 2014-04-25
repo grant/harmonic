@@ -9,10 +9,14 @@ block content
   .underlay
     .centerContent
       .left.arrow
-        .char ◀
+        .char ✘
       .right.arrow
         .char ▶
+      audio#widget(controls)
+        .char ✓
       .photo
       .control
 
 block js
+  script(src='/socket.io/socket.io.js')
+  script(src="/js/play.js")
