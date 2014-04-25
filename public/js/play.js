@@ -114,4 +114,8 @@ $(function () {
   socket.on('connected', function (data) {
     socket.emit('updatePlaylist');
   });
+
+  socket.on('updateFriends', function (data) {
+    console.log(data);
+  });
 });

@@ -29,6 +29,7 @@ io.configure('production', function(){
 });
 
 var onlineUsers = {};
+var lastUpdateTime = (new Date()).getTime();
 io.sockets.on('connection', function (socket) {
   console.log('connected');
   socket.emit('connected');
@@ -36,16 +37,24 @@ io.sockets.on('connection', function (socket) {
   // When the playlist is updated
   socket.on('updatePlaylist', function () {
     // updatePlaylist
-    console.log('hello there');
+    var thisUpdateTime = (new Date()).getTime();
+    if (lastUpdateTime - thisUpdateTime > 1000) {
+      // For each user, update the data
+      for (var fbId in onlineUsers) {
+        var userSocket = onlineUsers[fbId];
+        userSocket.emit('updateFriends', getFriendData(fbId, Object.keys(onlineUsers)));
+      }
+    }
   });
 
   socket.on('disconnect', function () {
     console.log('disconnected');
-    io.sockets.emit('someone disconnected', {
-      numUsers: io.sockets.clients().length,
-    });
   });
 });
+
+function getFriendData (fbId, onlineUsers) {
+  return [];
+}
 
 /*
     Configure environments
@@ -130,6 +139,7 @@ app.post('/playlist', auth.requiresLogin, playlist.addSong);
 app.del('/playlist', auth.requiresLogin, playlist.removeSong);
 app.post('/playlist/share', auth.requiresLogin, playlist.share);
 
+app.post('/lasttracks', auth.requiresLogin, user.getLastTracks);
 
 /*
     load helper methods for passport.js

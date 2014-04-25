@@ -40,8 +40,7 @@ var userSchema = new Schema({
 		byName: String
 	}],
 	playlist: [String],
-	fbId: String,
-	online: Boolean
+	fbId: String
 });
 
 
