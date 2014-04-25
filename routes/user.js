@@ -10,3 +10,10 @@ exports.logout = function(req, res) {
         'response': 'OK'
     });
 }
+
+/*
+	Get friends that are logged in
+ */
+exports.getOnlineFriends = function(user) {
+	var friends = user.friends;
+}
