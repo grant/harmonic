@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var User = require('./../models/user');
+var request = require('request');
 
 /*
     Logout the user and redirect to homepage.
@@ -48,33 +49,77 @@ exports.getLastTracks = function(req, res) {
     var thisUser = req.user;
     var result = [];
 
+    // find all online users
     User.find({online: true}, function(err, users) {
-        console.log(users);
+        // return res.send(users);
+        var added = 0;
         for (var i = 0; i < users.length; i++) {
+            var friendInDb = false;
             var otherUser = users[i];
-            if (thisUser.friends.indexOf(otherUser) != -1) {
-                var onlineFriend = {};
-                onlineFriend.fbId = otherUser;
-                // users are friends
-                User.findOne({fbId: otherUser}, function(err, user) {
-                    var lastTrack = user.playlist[user.playlist.length-1];
-                    var artwork;
+            for (var j = 0; j < thisUser.friends.length; ++j) {
+                if (thisUser.friends[j].id === otherUser.fbId) {
+                    friendInDb = true;
+                }
+            }
 
-                    var url = "https://api.soundcloud.com/resolve.json?consumer_key=2aaf60470a34d42b0561e92b17ec7ce2&url=" + lastTrack;
-                    request(url, function(err, resp, body) {
-                        body = JSON.parse(body);
-                        request(body.location, function(err, r, body) {
-                            body = JSON.parse(body);
-                            artwork = body.artwork_url;
-                            onlineFriend.lastTrack = lastTrack;
-                            onlineFriend.artwork = artwork;
-                        });
-                    });
+            // console.log(friendInDb);
+
+            if (friendInDb) {
+                console.log(otherUser.name);
+                // users are friends
+                getOneOnlineFriend(otherUser.fbId, function(onlineFriend) {
+                    // console.log(onlineFriend);
+                    if (onlineFriend) {
+                        // console.log(onlineFriend);
+                        result.push(onlineFriend);
+                        console.log(result);
+                        ++added;
+                        if (added === users.length) {
+                            console.log("first");
+                            return res.send(result);
+                        }
+                    } else {
+                        ++added;
+                        if (added === users.length) {
+                            return res.send(result);
+                        }
+                    }
                 });
-                result.push(onlineFriend);
-            }            
+            } else {
+                ++added;
+                if (added === users.length) {
+                    return res.send(result);
+                }
+            }
         }
     });
+}
 
-    res.send({data: result});
+
+function getOneOnlineFriend(otherUser, callback) {
+    User.findOne({fbId: otherUser}, function(err, user) {
+        if (user && user.playlist.length) {
+            var onlineFriend = {};
+            onlineFriend.fbId = otherUser;
+            
+            var lastTrack = user.playlist[user.playlist.length-1];
+            var artwork;
+
+            var url = "https://api.soundcloud.com/resolve.json?consumer_key=2aaf60470a34d42b0561e92b17ec7ce2&url=" + lastTrack;
+            request(url, function(err, resp, body) {
+                body = JSON.parse(body);
+                // console.log(body);
+                // request(body.location, function(err, r, body) {
+                    // body = JSON.parse(body);
+                    artwork = body.artwork_url;
+                    onlineFriend.lastTrack = lastTrack;
+                    onlineFriend.artwork = artwork;
+                    // console.log("in " + onlineFriend);
+                    callback(onlineFriend);
+                // });
+            });
+        } else {
+            callback(null);
+        }
+    });
 }
