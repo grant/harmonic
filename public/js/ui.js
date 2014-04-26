@@ -79,6 +79,22 @@ function UIViewModel() {
 		flyRight();
 	};
 
+	var popOpenPlaylist = function() {
+		$('.playlistBody').show();
+		$('.playlistButton').animate({
+			width: "500px",
+			height: "500px"
+		}, 500, completeFly);
+	};
+
+	var closePlaylist = function() {
+		$('.playlistBody').hide();
+		$('.playlistButton').animate({
+			width: "auto",
+			height: "auto"
+		}, 500);
+	};
+
 	/**
 	 *
 	 *
@@ -106,6 +122,16 @@ function UIViewModel() {
 
 	$('.right.arrow').click(function () {
 		toPlaylist();
+	});
+
+	$('.playlistButton').mouseenter(function() {
+		$(this).stop();
+		popOpenPlaylist();
+	});
+
+	$('.playlistButton').mouseleave(function() {
+		$(this).stop();
+		closePlaylist();
 	});
 
 	/**
