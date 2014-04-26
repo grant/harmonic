@@ -5,7 +5,7 @@
 var express = require('express'),       // the main ssjs framework
     routes = require('./routes'),       // by default, brings in routes/index.js
     user = require('./routes/user'),  // all login for admin panel
-    dashboard = require('./routes/dashboard'), // the main app's page
+    // dashboard = require('./routes/dashboard'), // the main app's page
     path = require('path'),             // for pathn manipulation
     db = require('./config/db'),        // database connection
     passport = require('passport'),     // for user authentication
@@ -88,10 +88,10 @@ app.get('/auth/facebook', passport.authenticate("facebook", {scope:'email'}));
 app.get('/auth/facebook/callback',
     passport.authenticate('facebook', {  }),
         function(req, res) {
-            // Successful authentication, redirect home.
-            // res.redirect('/');
-            console.log("logged in");
-            console.log(req.user);
+            // Successful authentication, redirect home.;
+            // console.log("logged in--------");
+            res.send(req.user)
+            // console.log(req.user);
     });
 
 
