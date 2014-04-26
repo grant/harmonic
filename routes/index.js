@@ -8,7 +8,10 @@ exports.index = function (req, res){
 };
 
 exports.play = function (req, res) {
-  res.render('play', { title: 'Play -- Harmonic' });
+  res.render('play', {
+  		title: 'Play -- Harmonic',
+        name: req.user.name, 
+        photo: req.user.photo});
 };
 
 exports.authError = function(req, res) {
@@ -16,7 +19,7 @@ exports.authError = function(req, res) {
 };
 
 exports.authSuccess = function(req, res) {
-  res.render('index', {
+  res.render('play', {
         success: 'true', 
         name: req.user.name, 
         photo: req.user.photo

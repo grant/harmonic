@@ -5,14 +5,17 @@ block content
   .overlay
     img.logo(src='/images/logo.svg')
     .profileArea
-      img.photo
-      .name
+      .name #{name}
+      img.photo(src = "#{photo}")
+    .playlistArea
+      .playlistButton Liked ✓
+
     ul.friends
       .friend
         .slideArea
-          div.songName Testing
-          img.albumPhoto
-        img.profilePhoto
+          div.songName Song Name
+          img.albumPhoto(src='/images/default.png')
+        img.profilePhoto(src='/images/logo.png')
 
   .underlay
     .centerContent

@@ -15,7 +15,8 @@ function UIViewModel() {
 	var bindings = {
 		onLeft : [],
 		onRight : [],
-		onFlyComplete : []
+		onFlyComplete : [],
+		onAlbumClick : []
 	};
 
 	var LEFT = 37;
@@ -31,8 +32,16 @@ function UIViewModel() {
 	};
 
 	var completeFly = function() {
+		$('.flyAway').remove();
 		for (var i = 0; i < bindings.onFlyComplete.length; i++) {
 			bindings.onFlyComplete[i]();
+		}
+	};
+
+	var albumClick = function(clicked) {
+		for (var i = 0; i < bindings.onAlbumClick.length; i++) {
+			//console.log(typeof bindings.onRight[i]);
+			bindings.onAlbumClick[i](clicked);
 		}
 	};
 
@@ -91,6 +100,10 @@ function UIViewModel() {
 		toTrash();
 	});
 
+	$('.albumPhoto').click(function() {
+		albumClick($(this));
+	});
+
 	$('.right.arrow').click(function () {
 		toPlaylist();
 	});
@@ -112,6 +125,8 @@ function UIViewModel() {
 			bindings.onRight.push(passed.onRight);
 		if (typeof passed.onFlyComplete != 'undefined')
 			bindings.onFlyComplete.push(passed.onFlyComplete);
+		if (typeof passed.onAlbumClick != 'undefined')
+			bindings.onAlbumClick.push(passed.onAlbumClick);
 		//console.log(bindings);
 	}
 
