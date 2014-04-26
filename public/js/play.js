@@ -166,7 +166,7 @@ $(function () {
     var divString = '';
     for(var i = 0; i < data.length; i++) {
       var imageUrl = 'http://graph.facebook.com/' + data[i].fbId + '/picture';
-      divString += '<div class="friend" data-fbId="' + data[i].fbId + '"><div class="slideArea"><img src="' + data[i].artwork + '" class="albumPhoto"></div><img src="' + imageUrl + '" class="profilePhoto"></div>';
+      divString += '<div class="friend" data-fbId="' + data[i].fbId + '"><div class="slideArea"><img src="' + data[i].artwork + '" class="albumPhoto" data-url="' + data[i].lastTrack + '""></div><img src="' + imageUrl + '" class="profilePhoto"></div>';
       $('.friends').html(divString);
     }
   });
