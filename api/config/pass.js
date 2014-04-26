@@ -39,8 +39,6 @@ module.exports = function (passport) {
 		callbackURL: Constants.Facebook.CALLBACK,
 		profileFields: ['id', 'emails', 'displayName', 'photos']
 	}, function(accessToken, refreshToken, profile, done) {
-		// console.log('facebook authentication ')
-		// console.log(profile);
 		User.findOne({$or: [{fbId : profile.id }, {email: profile.emails[0].value}]}, function(err, oldUser) {
 			if (oldUser) {
 				console.log("old user detected");
@@ -52,8 +50,8 @@ module.exports = function (passport) {
 					fbId: profile.id,
 					accessToken: accessToken,
 					email: profile.emails[0].value,
-					name: profile.name,
-					photo: profile.photos,
+					name: profile.displayName,
+					photo: profile.photos[0].value,
 					username: profile.emails[0].value.split('@')[0] // Temp username
 				}).save(function(err, newUser) {
 					if (err) return done(err);
