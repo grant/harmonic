@@ -22,11 +22,13 @@ block content
         .char ✓
       audio#widget(controls)
       .photo
+      .progress
       .control
 
 block js
   script(src='/socket.io/socket.io.js')
   script(src="/js/ui.js")
+  script(src="/js/progress.min.js")
   script(src="http://connect.soundcloud.com/sdk.js")
   script(src="http://w.soundcloud.com/player/api.js")
   script(src="/js/play.js")

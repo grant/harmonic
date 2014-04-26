@@ -14,14 +14,19 @@ $(function () {
     client_id: client_id
   });
 
+  progressJs(".progress").start();
+
   audioElem.addEventListener("canplay", function() { 
     audioElem.currentTime = starttimeoffset;
   }, true);
 
   audioElem.addEventListener("timeupdate", function() { 
-    if (audioElem.currentTime >= starttimeoffset + duration) {
+    var curTime = audioElem.currentTime;
+    if (curTime >= starttimeoffset + duration) {
       playNext();
     }
+    var diff = curTime - starttimeoffset;
+    progressJs(".progress").set((diff/duration)*100);
   }, true);
 
   var playNext = function() {
@@ -43,6 +48,7 @@ $(function () {
   function playOne(url) {
     SC.get(url, {}, function(sound, error) {
       if (sound.stream_url) {
+        progressJs(".progress").set(1);
         $('#widget').attr('src', sound.stream_url + '?client_id=' + client_id);
         if (sound.artwork_url) {
           var img = $('<img/>').attr('src', sound.artwork_url.replace("large", "crop"));
@@ -64,7 +70,6 @@ $(function () {
   // $(".arrow").click(function() {
   //   playNext();
   // });
-
 
   // on page load, get and play something
   playNext();
