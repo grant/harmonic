@@ -65,17 +65,17 @@ exports.getLastTracks = function(req, res) {
             // console.log(friendInDb);
 
             if (friendInDb) {
-                console.log(otherUser.name);
+                // console.log(otherUser.name);
                 // users are friends
                 getOneOnlineFriend(otherUser.fbId, function(onlineFriend) {
                     // console.log(onlineFriend);
                     if (onlineFriend) {
                         // console.log(onlineFriend);
                         result.push(onlineFriend);
-                        console.log(result);
+                        // console.log(result);
                         ++added;
                         if (added === users.length) {
-                            console.log("first");
+                            // console.log("first");
                             return res.send(result);
                         }
                     } else {
@@ -113,7 +113,7 @@ function getOneOnlineFriend(otherUser, callback) {
                     // body = JSON.parse(body);
                     artwork = body.artwork_url;
                     onlineFriend.lastTrack = lastTrack;
-                    onlineFriend.artwork = artwork;
+                    onlineFriend.artwork = artwork || '/images/default.png';
                     // console.log("in " + onlineFriend);
                     callback(onlineFriend);
                 // });
