@@ -43,6 +43,13 @@ exports.removeSong = function(req, res) {
 		});
 }
 
+// get all songs in a user's playlist
+exports.getAll = function(req, res) {
+	User.findById(req.user.id, function(err, user) {
+		res.send({tracks: user.playlist});
+	});
+}
+
 /*
     Share a playlist with another user
 */
