@@ -20,3 +20,42 @@ body {
     margin-left: auto;
     margin-right: auto;
 }
+
+
+
+#bar {
+    position: absolute;
+    bottom: 5px;
+}
+
+.bar-item {
+    margin-left: 10px;
+}
+
+.profile-photo, .album-photo {
+    border: solid #6a6a61 3px;
+    position: absolute;
+    color: ;
+}
+
+.song-name {
+    position: absolute;
+    width: 1000px;
+    bottom: 220px;
+    color: #fffcc4;
+}
+
+.profile-photo {
+    height: 100px;
+    width: 100px;
+    z-index: 101;
+    bottom: 10px;
+}
+
+.album-photo {
+    width: 90px;
+    height: 90px;
+    margin-left: 5px;
+    z-index: 100;
+    bottom: 35px;
+}
