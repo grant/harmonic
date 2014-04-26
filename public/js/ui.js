@@ -27,8 +27,7 @@ function UIViewModel() {
 		contents.find('#widget, .left, .right').remove();
 		var newFly = $('<div class="flyAway"></div>');
 		newFly.html(contents.html());
-		newFly.css({'margin-left' : '-' + ($('.flyAway').width() / 2) + 'px', 'top' : 0, 'left' : '50%'});
-		$('body').append(newFly);
+		$('.underlay > .centerContent').append(newFly);
 	};
 
 	var completeFly = function() {
@@ -39,17 +38,12 @@ function UIViewModel() {
 
 	var flyLeft = function() {
 		$('.flyAway').show();
-		$('.flyAway').animate({
-			'left': '0',
-			'margin-left': '-' + $('.flyAway').width() + 'px'
-		}, 500, completeFly);
+		$('.flyAway').fadeOut('slow', completeFly);
 	};
 
 	var flyRight = function() {
 		$('.flyAway').show();
-		$('.flyAway').animate({
-			left: '100%'
-		}, 500, completeFly);
+		$('.flyAway').fadeOut('slow', completeFly);
 	};
 
 	var toTrash = function() {
@@ -85,6 +79,13 @@ function UIViewModel() {
 		}
 	});
 
+	$('.left.arrow').click(function () {
+		toTrash();
+	});
+
+	$('.right.arrow').click(function () {
+		toPlaylist();
+	});
 
 	/**
 	 *
