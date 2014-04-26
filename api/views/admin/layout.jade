@@ -1,0 +1,24 @@
+// base layout for admin panel
+
+doctype html
+html(ng-app)
+	include ../includes/head
+
+	div.container
+		body.dropdown-index
+			div.navbar.navbar-inverse.navbar-fixed-top
+				div.container
+					div.navbar-header
+						a(href='/').navbar-brand #{appName}
+					div.navbar-collapse
+						ul.nav.navbar-nav.navbar-right
+							li
+								a(href="/admin/") Admin Home
+							li
+								a(href="/admin/users") Users
+							li
+								a(href="/admin/recommendations") Recommendations
+							li
+								a(href="/logout") Logout
+			block content
+	include ../includes/foot

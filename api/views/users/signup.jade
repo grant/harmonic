@@ -1,0 +1,34 @@
+extends ../layouts/signup-signin
+
+block content
+	div.signup-container
+		form.form-signup(name="adduser", method="post", action="/signup", novalidate)
+			h2.form-signin-heading Sign Up
+
+			if messages && messages.length
+				for message in messages
+						div.alert.alert-danger.alert-dismissable
+							button.close(data-dismiss="alert", aria-hidden="true") &times;
+							span #{message}
+
+			input.form-control(type="text", placeholder="Enter username", name="username", required, autofocus, ng-model="username", ng-minlength=4, ng-maxlength=30, ng-pattern="/^[a-zA-Z0-9\_]+$/", ng-class="{error: adduser.username.$dirty && adduser.username.$invalid}")
+			div.error(ng-show="adduser.username.$dirty && adduser.username.$invalid")
+				small.error(ng-show="adduser.username.$error.required") Username is required.
+				small.error(ng-show="adduser.username.$error.minlength") Username should be at least 4 characters.
+				small.error(ng-show="adduser.username.$error.maxlength") Username should be at most 30 characters.
+				small.error(ng-show="adduser.username.$error.pattern") Username can only contain alphabets, numbers and underscore.
+
+			input.form-control(type="password", placeholder="Enter password", name="userpassword", required=true, ng-minlength=8, ng-model="password", value= user ? user.password : undefined)
+			div.error(ng-show="adduser.userpassword.$dirty && adduser.userpassword.$invalid")
+				small.error(ng-show="adduser.userpassword.$error.required") Password is required
+				small.error(ng-show="adduser.userpassword.$error.minlength") Password should be at least 8 characters.
+			
+			input.form-control(type="email", placeholder="Enter email address", name="useremail", required=true, ng-model="email", value= user ? user.email : undefined)
+			div.error(ng-show="adduser.useremail.$dirty && adduser.useremail.$invalid")
+				small.error(ng-show="adduser.useremail.$error.required") Email is required.
+				small.error(ng-show="adduser.useremail.$error.email") Not a valid email.
+			
+			button.btn.btn-lg.btn-success.btn-block(type="submit", ng-disabled="adduser.$invalid") Sign Up
+
+		hr.custom
+		include ./oauth
