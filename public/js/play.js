@@ -43,7 +43,14 @@ $(function () {
   function playOne(url) {
     SC.get(url, {}, function(sound, error) {
       if (sound.stream_url) {
+        console.log(sound);
         $('#widget').attr('src', sound.stream_url + '?client_id=' + client_id);
+        if (sound.artwork_url) {
+          var img = $('<img/>').attr('src', sound.artwork_url.replace("large", "crop"));
+        } else {
+          var img = $('<img/>').attr('src', "/images/default.png");
+        }
+        $(".photo").html(img)
         audioElem.play();
       } else {
         playNext();
