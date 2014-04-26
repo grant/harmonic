@@ -218,13 +218,13 @@ function UIViewModel() {
 		}
 	});
 
-	$('.friend').mouseenter(function() {
+	$('body').on('mouseenter', '.friend', function() {
 		if(dragging != null)
 			$(this).addClass('active-drop');
 	});
 
 
-	$('.friend').mouseleave(function() {
+	$('body').on('mouseleave', '.friend', function() {
 		$(this).removeClass('active-drop');
 	});
 
