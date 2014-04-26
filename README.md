@@ -6,6 +6,18 @@ A music discovery app.
 See it live at [http://harmonic.herokuapp.com/](http://harmonic.herokuapp.com/)
 
 
+Tech
+====
+
+- Heroku
+- Node/Express
+- Facebook API
+- Soundcloud API
+- Socket.IO
+- Stylus
+- Jade
+- SVG
+
 API
 ====
 
