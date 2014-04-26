@@ -1,0 +1,14 @@
+<svg class="waveForm" xmlns="http://www.w3.org/2000/svg" viewBox="0 -2 64 34" preserveAspectRatio="none">
+    <path>
+        <animate class="animate" attributeName="d" values="
+        M0 16 C0 16 0 16 0 16 C0 16 0 16 0 16 C6 16 8 8 16 8 C24 8 24 32 32 32 C40 32 40 8 48 8 C56 8 58 16 64 16 ;
+        M0 16 C0 16 0 16 0 16 C6 16 8 24 16 24 C24 24 24 0 32 0 C40 0 40 24 48 24 C56 24 58 16 64 16 C64 16 64 16 64 16 ;
+        M0 16 C6 16 8 8 16 8 C24 8 24 32 32 32 C40 32 40 8 48 8 C56 8 58 16 64 16 C64 16 64 16 64 16 C64 16 64 16 64 16 " dur="9s" repeatCount="indefinite"></animate>
+    </path>
+    <path>
+        <animate class="animate" attributeName="d" values="
+        M0 16 C0 16 0 16 0 16 C0 16 0 16 0 16 C6 16 8 8 16 8 C24 8 24 32 32 32 C40 32 40 8 48 8 C56 8 58 16 64 16 ;
+        M0 16 C0 16 0 16 0 16 C6 16 8 24 16 24 C24 24 24 0 32 0 C40 0 40 24 48 24 C56 24 58 16 64 16 C64 16 64 16 64 16 ;
+        M0 16 C6 16 8 8 16 8 C24 8 24 32 32 32 C40 32 40 8 48 8 C56 8 58 16 64 16 C64 16 64 16 64 16 C64 16 64 16 64 16 " dur="7s" repeatCount="indefinite"></animate>
+    </path>
+</svg>
