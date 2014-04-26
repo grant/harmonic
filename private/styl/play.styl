@@ -114,6 +114,7 @@ body
       transition opacity 0.2s linear
       position relative
       height 100%
+      z-index 100
       width arrowWidth
       color beige
       cursor pointer
@@ -154,6 +155,7 @@ body
     background-color none
     display inline-block
     width 600px
+    z-index 100
     height 100%
     margin 0 auto
     height 100%
@@ -175,7 +177,7 @@ body
 
 .stopped.artwork {
   opacity: 0.3;
-  z-index: 1;
+  z-index: 100000;
 }
 
 @-webkit-keyframes fadeIn {
@@ -195,3 +197,17 @@ body
   animation-iteration-count: infinite;
   animation-duration: 6s;
 }
+
+.wave
+  position relative
+  height 40%
+  stroke rgba(218, 55, 53, 0.35)
+  stroke-width 0.35
+  width 100%
+  z-index 0
+  /*margin-top -500px*/
+
+.waveForm-play
+  position absolute
+  fill none
+  left 0px
