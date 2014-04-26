@@ -65,7 +65,9 @@ io.sockets.on('connection', function (socket) {
 
   socket.on('disconnect', function () {
     var userData = fbIdToUserData[thisSocketFbId];
-    user.setOnline(userData.user._id, false);
+    if (userData) {
+      user.setOnline(userData.user._id, false);
+    }
   });
 });
 
