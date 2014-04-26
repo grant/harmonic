@@ -12,8 +12,8 @@ var Constants = {
     Facebook: {
         APPID : '631801513573798',
         SECRET : '3e9733b7a5db17fa21f79158042d584a',
-        CALLBACK : 'http://www.goharmonic.com/auth/facebook/callback'
-        // CALLBACK : 'http://localhost:8888/auth/facebook/callback'
+        // CALLBACK : 'http://www.goharmonic.com/auth/facebook/callback'
+        CALLBACK : 'http://localhost:8888/auth/facebook/callback'
     }
 };
 

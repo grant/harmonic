@@ -144,23 +144,33 @@ $(function () {
   // on page load, get and play something
   playNext();
 
-  var socket = io.connect();
-  var idIsValid = false;
-  socket.on('connected', function (data) {
-    socket.emit('identification', $('.accessToken').text());
-  });
-
-  socket.on('identification', function (success) {
-    idIsValid = success;
-    socket.emit('updatePlaylist');
-  });
-
   setInterval(function () {
-    socket.emit('updatePlaylist');
-    console.log('updating playlist');
+    $.getJSON('/allonlinefriends', function (data) {
+      updateFriends(data);
+    });
   }, 5000);
 
-  socket.on('updateFriends', function (data) {
+  // var socket = io.connect();
+  // var idIsValid = false;
+  // socket.on('connected', function (data) {
+  //   socket.emit('identification', $('.accessToken').text());
+  // });
+
+  // socket.on('identification', function (success) {
+  //   idIsValid = success;
+  //   socket.emit('updatePlaylist');
+  // });
+
+  // setInterval(function () {
+  //   socket.emit('updatePlaylist');
+  //   console.log('updating playlist');
+  // }, 5000);
+
+  // socket.on('updateFriends', function (data) {
+  //   updateFriends(data);
+  // });
+
+  function updateFriends (data) {
     console.log('updating friend bar');
     console.log(data);
     data = data.sort(function (a, b) {
@@ -172,5 +182,5 @@ $(function () {
       divString += '<div class="friend" data-fbId="' + data[i].fbId + '"><div class="slideArea"><img src="' + data[i].artwork + '" class="albumPhoto" data-url="' + data[i].lastTrack + '""></div><img src="' + imageUrl + '" class="profilePhoto"></div>';
       $('.friends').html(divString);
     }
-  });
+  }
 });
