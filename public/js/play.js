@@ -128,8 +128,6 @@ $(function () {
 
   var socket = io.connect();
   socket.on('connected', function (data) {
-    socket.emit('setupId', accessToken);
-    socket.emit('updatePlaylist');
     socket.emit('identification', $('.accessToken').text());
   });
 
