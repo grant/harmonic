@@ -5,8 +5,6 @@
 var express = require('express'),       // the main ssjs framework
     routes = require('./routes'),       // by default, brings in routes/index.js
     queue = require('./routes/queue'),
-    // user = require('./routes/user'),  // all login for admin panel
-    // dashboard = require('./routes/dashboard'), // the main app's page
     user = require('./routes/user'),
     playlist = require('./routes/playlist'),
     path = require('path'),             // for pathn manipulation
@@ -90,12 +88,15 @@ app.get('/logout', auth.requiresLogin, user.logout);
 // Passport redirects to a facebook login and we ask only for email
 app.get('/auth/facebook', passport.authenticate("facebook", {scope:'email'}));
 app.get('/auth/facebook/callback',
-    passport.authenticate('facebook', { failureRedirect: '/' }),
+    passport.authenticate('facebook', { failureRedirect: '/auth/error' }),
         function(req, res) {
             // Successful authentication, redirect home.;
             res.render('index', { success: 'true' });
     });
 
+app.get('/auth/error', function(req, res) {
+    res.render('index', { success: 'false' });
+});
 app.get('/nextsong', auth.requiresLogin, queue.nextSong);
 
 // Playlist endpoints

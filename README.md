@@ -14,7 +14,7 @@ API
 
 `GET /auth/facebook`
 
-If user has previously logged in then redirect to homepage with the flag `success = true` else no flag is set.
+If user has previously logged in then redirect to homepage with the flag `success = true` else flag is false.
 
 ## Queue
 
