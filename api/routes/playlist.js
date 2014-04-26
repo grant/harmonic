@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var User = require('./../models/playlist');
+var Playlist = require('./../models/playlist');
 
 /*
     Add a playlist to the current user
