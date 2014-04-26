@@ -13,15 +13,14 @@ block content
         img.profilePhoto
         img.albumPhoto
 
-  .underlay(ng-app='plangular')
-
+  .underlay
     .centerContent
       .left.arrow
         .char ✘
       .right.arrow
-        .char ▶
-      audio#widget(controls)
         .char ✓
+      audio#widget(controls)
+        .char ▶
       .photo
       .control
 
@@ -31,5 +30,3 @@ block js
   script(src="http://connect.soundcloud.com/sdk.js")
   script(src="http://w.soundcloud.com/player/api.js")
   script(src="/js/play.js")
-  script(src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular.min.js")
-  script(src="/js/plangular.js")
