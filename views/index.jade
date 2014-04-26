@@ -4,7 +4,16 @@ block content
   #header-logo
     img(src='/images/logo.png', alt='Harmonic')
   #fb
-    
+  svg.waveForm(xmlns='http://www.w3.org/2000/svg', viewbox='0 -2 64 34', preserveaspectratio='none')
+    path
+      animate.animate(attributename='d', values=' M0 16 C0 16 0 16 0 16 C0 16 0 16 0 16 C6 16 8 8 16 8 C24 8 24 32 32 32 C40 32 40 8 48 8 C56 8 58 16 64 16 ;M0 16 C0 16 0 16 0 16 C6 16 8 24 16 24 C24 24 24 0 32 0 C40 0 40 24 48 24 C56 24 58 16 64 16 C64 16 64 16 64 16 ;M0 16 C6 16 8 8 16 8 C24 8 24 32 32 32 C40 32 40 8 48 8 C56 8 58 16 64 16 C64 16 64 16 64 16 C64 16 64 16 64 16 ', dur='9s', repeatcount='indefinite')
+    path
+      animate.animate(attributename='d', values=' M0 16 C0 16 0 16 0 16 C0 16 0 16 0 16 C6 16 8 8 16 8 C24 8 24 32 32 32 C40 32 40 8 48 8 C56 8 58 16 64 16 ;M0 16 C0 16 0 16 0 16 C6 16 8 24 16 24 C24 24 24 0 32 0 C40 0 40 24 48 24 C56 24 58 16 64 16 C64 16 64 16 64 16 ;M0 16 C6 16 8 8 16 8 C24 8 24 32 32 32 C40 32 40 8 48 8 C56 8 58 16 64 16 C64 16 64 16 64 16 C64 16 64 16 64 16 ', dur='7s', repeatcount='indefinite')
+  script(src='//ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular.min.js')
+  script(src='/js/plangular.js')
+
+  //- This is Ryan's friends thing
+
   //- span.song-name lorem ipsum here
   //- img.profile-photo(src='profile.jpg')
   //- img.album-photo(src='album.png')
