@@ -32,6 +32,9 @@ var userSchema = new Schema({
 		type: String
 	},
 	friends: [String],
+	photo: {
+		type: String
+	},
 	playlists: {
 		type: Schema.Types.ObjectId,
 		ref: 'Playlist'

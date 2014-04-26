@@ -36,7 +36,8 @@ module.exports = function (passport) {
 	passport.use(new FacebookStrategy({
 		clientID: Constants.Facebook.APPID,
 		clientSecret: Constants.Facebook.SECRET,
-		callbackURL: Constants.Facebook.CALLBACK
+		callbackURL: Constants.Facebook.CALLBACK,
+		profileFields: ['id', 'emails', 'displayName', 'photos']
 	}, function(accessToken, refreshToken, profile, done) {
 		// console.log('facebook authentication ')
 		// console.log(profile);
@@ -51,6 +52,8 @@ module.exports = function (passport) {
 					fbId: profile.id,
 					accessToken: accessToken,
 					email: profile.emails[0].value,
+					name: profile.name,
+					photo: profile.photos,
 					username: profile.emails[0].value.split('@')[0] // Temp username
 				}).save(function(err, newUser) {
 					if (err) return done(err);
