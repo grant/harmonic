@@ -157,6 +157,7 @@ $(function () {
 
   setInterval(function () {
     socket.emit('updatePlaylist');
+    console.log('updating playlist');
   }, 5000);
 
   socket.on('updateFriends', function (data) {
