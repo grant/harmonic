@@ -22,8 +22,12 @@ exports.getUserFromToken = function(token, callback) {
 /*
 Sets if the user is online
  */
-exports.setOnline = function (userId, isOnline) {
-    User.update({'_id' : userId}, {online: isOnline});
+exports.setOnline = function (userId, isOnline, callback) {
+    User.update({'_id' : userId}, {online: isOnline}, function () {
+        if (callback) {
+            callback();
+        }
+    });
 };
 
 /**
