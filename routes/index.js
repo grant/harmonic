@@ -10,3 +10,12 @@ exports.index = function (req, res){
 exports.play = function (req, res) {
   res.render('play', { title: 'Play -- Harmonic' });
 };
+
+exports.authError = function(req, res) {
+  res.render('index', { success: 'false' });
+};
+
+exports.authSuccess = function(req, res) {
+  // Successful authentication, redirect home.;
+  res.render('index', { success: 'true' });
+};

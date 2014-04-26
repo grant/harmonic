@@ -104,16 +104,8 @@ app.get('/logout', auth.requiresLogin, user.logout);
 // social signin
 // Passport redirects to a facebook login and we ask only for email
 app.get('/auth/facebook', passport.authenticate("facebook", {scope:'email'}));
-app.get('/auth/facebook/callback',
-    passport.authenticate('facebook', { failureRedirect: '/auth/error' }),
-        function(req, res) {
-            // Successful authentication, redirect home.;
-            res.render('index', { success: 'true' });
-    });
-
-app.get('/auth/error', function(req, res) {
-    res.render('index', { success: 'false' });
-});
+app.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/auth/error' }), routes.authSuccess);
+app.get('/auth/error', routes.authError);
 
 app.get('/nextsong', auth.requiresLogin, queue.nextSong);
 app.post('/recommendsong', auth.requiresLogin, queue.recommend);
