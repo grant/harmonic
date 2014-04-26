@@ -28,17 +28,21 @@ io.configure('production', function(){
   io.set('transports', [ 'websocket', 'flashsocket', 'htmlfile', 'xhr-polling', 'jsonp-polling']);
 });
 
-var socketToUserData = {};
+var fbIdToUserData = {};
 var lastUpdateTime = (new Date()).getTime();
 io.sockets.on('connection', function (socket) {
-  console.log('connected');
+  var thisSocketFbId;
   socket.emit('connected');
 
   // Sets up the user data
   socket.on('identification', function (accessToken) {
-    user.getUserFromToken(accessToken, function (err, data) {
-      socketToUserData[socket] = data;
-      user.setOnline(data._id, true, function () {
+    user.getUserFromToken(accessToken, function (err, thisUser) {
+      fbIdToUserData[thisUser.fbId] = {
+        socket: socket,
+        user: thisUser
+      };
+      thisSocketFbId = thisUser.fbId;
+      user.setOnline(thisUser._id, true, function () {
         socket.emit('identification', true);
       });
     });
@@ -51,20 +55,21 @@ io.sockets.on('connection', function (socket) {
     if (thisUpdateTime - lastUpdateTime > 1000) {
       lastUpdateTime = thisUpdateTime;
       // Get the online users
-      user.getOnlineUsers(function (onlineUsers) {
-        for (var thisSocket in socketToUserData) {
-          // var thisUser = socketToUserData[thisSocket];
-          // user.getLastTracks(thisUser.fbId, onlineUsers, function (friendData) {
-          //   thisSocket.emit('updateFriends', friendData);
-          // });
+      user.getOnlineUsers(function (err, onlineUsers) {
+        for (var fbId in fbIdToUserData) {
+          var thisUserData = fbIdToUserData[fbId];
+          user.getLastTracks(fbId, onlineUsers, function (friendData) {
+            console.log(friendData);
+            thisUserData.socket.emit('updateFriends', friendData);
+          });
         }
       });
     }
   });
 
   socket.on('disconnect', function () {
-    var userData = socketToUserData[socket];
-    user.setOnline(userData._id, false);
+    var userData = fbIdToUserData[thisSocketFbId];
+    user.setOnline(userData.user._id, false);
   });
 });
 

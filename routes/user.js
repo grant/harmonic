@@ -16,7 +16,9 @@ exports.logout = function(req, res) {
     Get user from access token
  */
 exports.getUserFromToken = function(token, callback) {
-    User.findOne({accessToken : token}, callback);
+    User.findOne({accessToken : token}, function (err, user) {
+        callback(err, user);
+    });
 };
 
 /*
@@ -34,7 +36,9 @@ exports.setOnline = function (userId, isOnline, callback) {
  * Gets all users that are online
  */
 exports.getOnlineUsers = function (callback) {
-    User.find({online:true}, callback);
+    User.find({online:true}, function(err, users) {
+        callback(err, users);
+    });
 };
 
 /*
