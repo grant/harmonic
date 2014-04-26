@@ -38,7 +38,9 @@ io.sockets.on('connection', function (socket) {
   socket.on('identification', function (accessToken) {
     user.getUserFromToken(accessToken, function (err, data) {
       socketToUserData[socket] = data;
-      user.setOnline(data._id, true);
+      user.setOnline(data._id, true, function () {
+        socket.emit('identification', true);
+      });
     });
   });
 

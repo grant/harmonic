@@ -63,7 +63,7 @@ $(function () {
         progressJs(".progress").set(0);
         $('#widget').attr('src', sound.stream_url + '?client_id=' + client_id);
         $('#song-title').html(sound.title);
-        $('#song-author').html('By <a href="' + sound.user.permalink_url + '">' + sound.user.username + '</a>');
+        $('#song-author').html('By <a target="_blank" href="' + sound.user.permalink_url + '">' + sound.user.username + '</a>');
         if (sound.artwork_url) {
           var img = $('<img/>').attr('src', sound.artwork_url.replace("large", "crop"));
           img.addClass("current");
@@ -129,8 +129,14 @@ $(function () {
   playNext();
 
   var socket = io.connect();
+  var idIsValid = false;
   socket.on('connected', function (data) {
     socket.emit('identification', $('.accessToken').text());
+  });
+
+  socket.on('identification', function (success) {
+    idIsValid = success;
+    socket.emit('updatePlaylist');
   });
 
   socket.on('updateFriends', function (data) {
