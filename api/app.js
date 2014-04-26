@@ -80,10 +80,10 @@ app.get('/logout', auth.requiresLogin, user.logout);
 // Passport redirects to a facebook login and we ask only for email
 app.get('/auth/facebook', passport.authenticate("facebook", {scope:'email'}));
 app.get('/auth/facebook/callback', // Authenticates it and sends to dashboard
-        passport.authenticate('facebook',{ 
+        passport.authenticate('facebook', function(req, res) { 
             console.log("logged in");
             console.log(req.user);
-        });
+        })
 );
 
 
