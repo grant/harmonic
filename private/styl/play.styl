@@ -28,6 +28,8 @@ body
       &:hover
         .slideArea
           bottom 100px
+          .songName
+            opacity 1
       position relative
       pointer-events auto
       width 100px
@@ -36,19 +38,21 @@ body
       display inline-block
       margin 0 10px
       .slideArea
-        z-index 1000
+        z-index -1
         transition bottom 0.4s linear
         position absolute
-        bottom 15px
+        bottom 20px
         .songName
-          text-align: center
+          transition opacity 0.4s linear
+          opacity 0
+          text-align center
           color #fffcc4
         img.albumPhoto
           width 90px
           height 90px
           margin 5px
       img.profilePhoto
-        z-index 1
+        z-index 1000
         height 100px
         width 100px
 

@@ -14,11 +14,11 @@ $(function () {
     client_id: client_id
   });
 
-  audioElem.addEventListener("canplay", function() { 
+  audioElem.addEventListener("canplay", function() {
     audioElem.currentTime = starttimeoffset;
   }, true);
 
-  audioElem.addEventListener("timeupdate", function() { 
+  audioElem.addEventListener("timeupdate", function() {
     if (audioElem.currentTime >= starttimeoffset + duration) {
       playNext();
     }
