@@ -111,7 +111,7 @@ function UIViewModel() {
 		}
 		$('.playlistBody').show();
 		$('.playlistButton').animate({
-			width: "500px"
+			width: "300px"
 		}, 500, completeFly);
 	};
 
