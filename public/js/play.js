@@ -25,10 +25,11 @@ $(function () {
   audioElem.addEventListener("timeupdate", function() { 
     var curTime = audioElem.currentTime;
     if (curTime >= starttimeoffset + duration) {
-      $(".photo").addClass("stopped");
+      // $(".photo").addClass("stopped");
       $(".progressjs-progress").hide();
       $('#animated-1').attr('dur', '50s');
       $('#animated-2').attr('dur', '30s');
+      $('.left.arrow').click();
       // audioElem.pause();
       playNext();
     }
@@ -63,7 +64,7 @@ $(function () {
         progressJs(".progress").set(0);
         $('#widget').attr('src', sound.stream_url + '?client_id=' + client_id);
         $('#song-title').html(sound.title);
-        $('#song-author').html('By <a target="_blank" href="' + sound.user.permalink_url + '">' + sound.user.username + '</a>');
+        // $('#song-author').html('By <a target="_blank" href="' + sound.user.permalink_url + '">' + sound.user.username + '</a>');
         if (sound.artwork_url) {
           var img = $('<img/>').attr('src', sound.artwork_url.replace("large", "crop"));
           img.addClass("current");
