@@ -53,10 +53,10 @@ io.sockets.on('connection', function (socket) {
       // Get the online users
       user.getOnlineUsers(function (onlineUsers) {
         for (var thisSocket in socketToUserData) {
-          var thisUser = socketToUserData[thisSocket];
-          user.getLastTracks(thisUser.fbId, onlineUsers, function (friendData) {
-            thisSocket.emit('updateFriends', friendData);
-          });
+          // var thisUser = socketToUserData[thisSocket];
+          // user.getLastTracks(thisUser.fbId, onlineUsers, function (friendData) {
+          //   thisSocket.emit('updateFriends', friendData);
+          // });
         }
       });
     }
