@@ -25,8 +25,8 @@ function UIViewModel() {
 	var RIGHT = 39;
 
 	//janky
-	var playlistButtonWidth = $('.playlistButton').width();
-	var playlistButtonHeight = $('.playlistButton').height();
+	var oldPlaylistButtonWidth = $('.playlistButton').width();
+	var oldPlaylistButtonHeight = $('.playlistButton').height();
 
 	var prepFly = function() {
 		$('.flyAway').remove();
@@ -51,20 +51,41 @@ function UIViewModel() {
 		}
 	};
 
+	function AnimateRotate(angle) {
+	    // caching the object for performance reasons
+	    var $elem = $('.flyAway:not(".current")');
+
+	    // we use a pseudo object for the animation
+	    // (starts from `0` to `angle`), you can name it as you want
+	    $({deg: 0}).delay(200).animate({deg: angle}, {
+	        duration: 3000,
+	        step: function(now) {
+	            // in the step-callback (that is fired each step of the animation),
+	            // you can use the `now` paramter which contains the current
+	            // animation-position (`0` up to `angle`)
+	            $elem.css({
+	                transform: 'rotate(' + now + 'deg)'
+	            });
+	        }
+	    });
+	}
+
 	var flyLeft = function() {
 		$('.flyAway').show();
-		$('.flyAway').animate({
+		AnimateRotate(-60);
+		$('.flyAway').delay(200).animate({
 			opacity: 0.0,
-			left: "-=50"
-		}, 500, completeFly);
+			left: "-=300"
+		}, 1000, completeFly);
 	};
 
 	var flyRight = function() {
 		$('.flyAway').show();
-		$('.flyAway').animate({
+		AnimateRotate(-30);
+		$('.flyAway').delay(200).animate({
 			opacity: 0.0,
-			left: "+=50"
-		}, 500, completeFly);
+			left: "+=300"
+		}, 1000, completeFly);
 	};
 
 	var toTrash = function() {
@@ -90,8 +111,7 @@ function UIViewModel() {
 		}
 		$('.playlistBody').show();
 		$('.playlistButton').animate({
-			width: "500px",
-			height: "500px"
+			width: "300px"
 		}, 500, completeFly);
 	};
 
@@ -99,10 +119,9 @@ function UIViewModel() {
 		for (var i = 0; i < bindings.onPlaylistLeave.length; i++) {
 			bindings.onPlaylistLeave[i]();
 		}
-		$('.playlistBody').hide();
-		$('.playlistButton').animate({
-			width: playlistButtonWidth + 'px',
-			height: playlistButtonHeight + 'px'
+		 $('.playlistBody').hide();
+		 $('.playlistButton').animate({
+		 	width: oldPlaylistButtonWidth + 'px'
 		}, 500);
 	};
 
@@ -135,14 +154,13 @@ function UIViewModel() {
 		toPlaylist();
 	});
 
-	$('.playlistButton').mouseenter(function() {
+	$('.playlistButton').click(function() {
 		$(this).stop();
-		popOpenPlaylist();
-	});
-
-	$('.playlistButton').mouseleave(function() {
-		$(this).stop();
-		closePlaylist();
+		$('.playlistButton').toggleClass('opened')
+		if(!$('.playlistButton').hasClass('opened'))
+			closePlaylist();
+		else
+			popOpenPlaylist();
 	});
 
 	/**
