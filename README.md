@@ -14,7 +14,7 @@ API
 
 `GET /auth/facebook`
 
-If user has previously logged in then returns the user profile else redirects to FB and then returns the user details as JSON.
+If user has previously logged in then redirect to homepage with the flag `success = true` else no flag is set.
 
 ## Queue
 

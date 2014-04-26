@@ -90,13 +90,10 @@ app.get('/logout', auth.requiresLogin, user.logout);
 // Passport redirects to a facebook login and we ask only for email
 app.get('/auth/facebook', passport.authenticate("facebook", {scope:'email'}));
 app.get('/auth/facebook/callback',
-    passport.authenticate('facebook', {  }),
+    passport.authenticate('facebook', { failureRedirect: '/' }),
         function(req, res) {
             // Successful authentication, redirect home.;
-            // console.log("logged in--------");
-            //res.send(req.user)
-            // console.log(req.user);
-            res.redirect('/');
+            res.render('index', { success: 'true' });
     });
 
 app.get('/nextsong', auth.requiresLogin, queue.nextSong);
