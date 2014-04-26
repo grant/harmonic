@@ -87,7 +87,7 @@ $(function () {
         // var track = getTrackDetails(data.tracks[i]);
         getTrackDetails(data.tracks[i], function(track) {
           var image = track.artwork_url || '/images/default.png';
-          $('.likedSongs').append('<li class="song" data-url="' + track.uri + '"><span class="name">' + track.title + '</span><img src="' + image + '" class="albumPhoto" /></li>');
+          $('.likedSongs').prepend('<li class="song" data-url="' + track.uri + '"><span class="name">' + track.title + '</span><img src="' + image + '" class="albumPhoto" /></li>');
         });
       }
     });
