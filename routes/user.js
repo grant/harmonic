@@ -49,6 +49,7 @@ exports.getLastTracks = function(req, res) {
     var result = [];
 
     User.find({online: true}, function(err, users) {
+        console.log(users);
         for (var i = 0; i < users.length; i++) {
             var otherUser = users[i];
             if (thisUser.friends.indexOf(otherUser) != -1) {
