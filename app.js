@@ -125,6 +125,7 @@ require('./config/pass.js')(passport);
 
 
 // Creates the server and has socets listen to it
-app.listen(app.get('port')), { log: false};
+// app.listen(app.get('port')), { log: false};
+server.listen(app.get('port'));
 
 console.log('Express server listening on port ' + app.get('port'));

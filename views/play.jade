@@ -5,13 +5,18 @@ block content
     img.logo(src='/images/logo.svg')
     ul.friends
       .friend
+
   .underlay
     .centerContent
       .left.arrow
-        .char ◀
+        .char ✘
       .right.arrow
         .char ▶
       audio#widget(controls)
+        .char ✓
+      .photo
       .control
 
 block js
+  script(src='/socket.io/socket.io.js')
+  script(src="/js/play.js")
