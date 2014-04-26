@@ -13,7 +13,8 @@ block content
         img.profilePhoto
         img.albumPhoto
 
-  .underlay
+  .underlay(ng-app='plangular')
+
     .centerContent
       .left.arrow
         .char ✘
@@ -26,6 +27,9 @@ block content
 
 block js
   script(src='/socket.io/socket.io.js')
+  script(src="/js/ui.js")
   script(src="http://connect.soundcloud.com/sdk.js")
   script(src="http://w.soundcloud.com/player/api.js")
   script(src="/js/play.js")
+  script(src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular.min.js")
+  script(src="/js/plangular.js")

@@ -1,3 +1,6 @@
+body
+  overflow hidden
+
 .overlay
   pointer-events none
   z-index 1000
@@ -95,7 +98,17 @@
   width 100%
   position absolute
 
-.photo.img {
-  width: 400px;
-  height: 400px;
-}
+.flyAway
+  position absolute
+  display none
+  height 100%
+  z-index 500000000
+  .centerContent
+    background-color darkGray
+    display inline-block
+    width 600px
+    height 100%
+    margin 0 auto
+    height 100%
+    z-index 500000000
+    arrowWidth = 60px
