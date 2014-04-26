@@ -21,3 +21,4 @@ Hipster Mode:
 - 2 computers on stage
 - swipe songs to friends
 - create playlist
+- grab a song, it'll shrink, and drag it to a friend to add it to their playlist.
