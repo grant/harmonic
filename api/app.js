@@ -4,7 +4,8 @@
 
 var express = require('express'),       // the main ssjs framework
     routes = require('./routes'),       // by default, brings in routes/index.js
-    user = require('./routes/user'),  // all login for admin panel
+    queue = require('./routes/queue'),
+    // user = require('./routes/user'),  // all login for admin panel
     // dashboard = require('./routes/dashboard'), // the main app's page
     path = require('path'),             // for pathn manipulation
     db = require('./config/db'),        // database connection
@@ -94,6 +95,7 @@ app.get('/auth/facebook/callback',
             // console.log(req.user);
     });
 
+app.get('/nextsong', auth.requiresLogin, queue.nextSong);
 
 /*
     load helper methods for passport.js
