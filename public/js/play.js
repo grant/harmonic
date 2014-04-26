@@ -21,16 +21,25 @@ $(function () {
       // empty queue, get more songs
       $.get( "/nextsong", function(data) {
         currentQueue = data.tracks;
-        console.log(currentQueue);
         // play the first song
         var url = currentQueue.pop().songUrl;
-        console.log(url);
         SC.get(url, {}, function(sound, error) {
           $('#widget').attr('src', sound.stream_url + '?client_id=' + client_id);
+          audioElem.play();
         });
+      });
+    } else {
+      var url = currentQueue.pop().songUrl;
+      SC.get(url, {}, function(sound, error) {
+        $('#widget').attr('src', sound.stream_url + '?client_id=' + client_id);
+        audioElem.play();
       });
     }
   }
+
+  $(".arrow").click(function() {
+    playNext();
+  });
 
 var socket = io.connect();
 console.log('playing song');
