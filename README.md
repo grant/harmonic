@@ -16,6 +16,22 @@ API
 
 If user has previously logged in then returns the user profile else redirects to FB and then returns the user details as JSON.
 
+## Queue
+
+`GET /nextsong`
+
+Returns 5 next songs in the queue.
+
+	{
+		tracks: [
+			"https://api.soundcloud.com/tracks/57322132",
+			"https://api.soundcloud.com/tracks/98430936",
+			"https://api.soundcloud.com/tracks/49813687",
+			"https://api.soundcloud.com/tracks/135334184",
+			"https://api.soundcloud.com/tracks/117842383"
+		]
+	}
+
 ## Playlist interaction:
 
 ### Add song
