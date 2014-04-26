@@ -28,6 +28,10 @@ var userSchema = new Schema({
 	accessToken: {
 		type: String
 	},
+	name: {
+		type: String
+	},
+	friends: [String],
 	playlists: {
 		type: Schema.Types.ObjectId,
 		ref: 'Playlist'
