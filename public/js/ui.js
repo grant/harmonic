@@ -154,7 +154,7 @@ function UIViewModel() {
 		toPlaylist();
 	});
 
-	$('.playlistButton').click(function() {
+	$('.playlistButton').mouseenter(function() {
 		$(this).stop();
 		if(!$('.playlistButton').hasClass('opened')) {
 			$('.playlistButton').toggleClass('opened');
