@@ -35,18 +35,19 @@ $(function () {
         currentQueue = data.tracks;
         // play the first song
         var url = currentQueue.pop().songUrl;
-        SC.get(url, {}, function(sound, error) {
-          $('#widget').attr('src', sound.stream_url + '?client_id=' + client_id);
-          audioElem.play();
-        });
+        playOne(url);
       });
     } else {
       var url = currentQueue.pop().songUrl;
-      SC.get(url, {}, function(sound, error) {
-        $('#widget').attr('src', sound.stream_url + '?client_id=' + client_id);
-        audioElem.play();
-      });
+      playOne(url);
     }
+  }
+
+  function playOne(url) {
+    SC.get(url, {}, function(sound, error) {
+      $('#widget').attr('src', sound.stream_url + '?client_id=' + client_id);
+      audioElem.play();
+    });
   }
 
   $(".arrow").click(function() {
