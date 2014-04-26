@@ -119,6 +119,7 @@ app.get('/nextsong', auth.requiresLogin, queue.nextSong);
 app.post('/recommendsong', auth.requiresLogin, queue.recommend);
 
 // Playlist endpoints
+app.get('/playlist', auth.requiresLogin, playlist.getAll);
 app.post('/playlist', auth.requiresLogin, playlist.addSong);
 app.del('/playlist', auth.requiresLogin, playlist.removeSong);
 app.post('/playlist/share', auth.requiresLogin, playlist.share);
