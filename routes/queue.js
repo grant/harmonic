@@ -3,14 +3,16 @@ var User = require('./../models/user');
 var request = require('request');
 
 // calls soundcloud api and gets 50 songs
-function getTracks(callback) {
+function getTracks(playlist, callback) {
     var url = "https://api.soundcloud.com/tracks.json?consumer_key=2aaf60470a34d42b0561e92b17ec7ce2&genres=trance&order=hotness&limit=50";
     request(url, function(err, resp, body) {
         var tracks = [];
         body = JSON.parse(body);
         for (var i = 0; i < body.length; i++) {
-            var track = { songUrl: body[i].uri, byName: '' };
-            tracks.push(track);
+            if (playlist.indexOf(body[i].uri) != -1) {
+                var track = { songUrl: body[i].uri, byName: '' };
+                tracks.push(track);
+            }
         }
         callback(tracks);
     });
@@ -27,7 +29,7 @@ exports.nextSong = function(req, res) {
     User.findById(user._id, function(err, dbUser) {
         if (dbUser.queue.length == 0) {
             // call soundcloud api and fill it
-            getTracks(function(tracks) {
+            getTracks(dbUser.playlist, function(tracks) {
                 var returnTracks = [];
                 for (var i = 0; i < 5; i++) {
                     returnTracks.push(tracks.pop());
