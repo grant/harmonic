@@ -35,7 +35,10 @@ var userSchema = new Schema({
 	photo: {
 		type: String
 	},
-	queue: [String],
+	queue: [{
+		songUrl: String,
+		byName: String
+	}],
 	playlist: [String],
 	fbId: String
 });
