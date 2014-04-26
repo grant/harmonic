@@ -28,11 +28,19 @@ io.configure('production', function(){
   io.set('transports', [ 'websocket', 'flashsocket', 'htmlfile', 'xhr-polling', 'jsonp-polling']);
 });
 
-var onlineUsers = {};
+var accessTokenToUserData = {};
 var lastUpdateTime = (new Date()).getTime();
 io.sockets.on('connection', function (socket) {
   console.log('connected');
   socket.emit('connected');
+
+  // Sets up the user data
+  socket.on('setupId', function (accessToken) {
+    accessTokenToUserData[accessToken] = {
+      socket: socket,
+      user: getUserData(accessToken)
+    };
+  });
 
   // When the playlist is updated
   socket.on('updatePlaylist', function () {

@@ -98,8 +98,8 @@ $(function () {
   }
 
   ui.addBinds({
-  	onLeft : playNext,
-  	onRight : saveTrack,
+    onLeft : playNext,
+    onRight : saveTrack,
     onPlaylistEnter : updateTrackList,
     onClickPlaylistSong : function(clicked) {
       var url = clicked.data('url');
@@ -112,6 +112,7 @@ $(function () {
 
   var socket = io.connect();
   socket.on('connected', function (data) {
+    socket.emit('setupId', accessToken);
     socket.emit('updatePlaylist');
   });
 

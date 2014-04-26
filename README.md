@@ -14,6 +14,8 @@ Tech
 - Facebook API
 - Soundcloud API
 - Socket.IO
+- Redis
+- Mongodb
 - Leap Motion
 - Stylus
 - Jade
