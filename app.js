@@ -130,6 +130,7 @@ app.post('/playlist', auth.requiresLogin, playlist.addSong);
 app.del('/playlist', auth.requiresLogin, playlist.removeSong);
 app.post('/playlist/share', auth.requiresLogin, playlist.share);
 
+app.post('/lasttracks', auth.requiresLogin, user.getLastTracks);
 
 /*
     load helper methods for passport.js
