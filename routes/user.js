@@ -47,9 +47,21 @@ exports.getOnlineUsers = function (callback) {
  */
 exports.getLastTracks = function(thisUser, callback) {
     var result = [];
+    var done = false;
+
+    setTimeout(function () {
+        if (!done) {
+            callback();
+        }
+    }, 2000);
 
     // find all online users
     User.find({online: true}, function(err, users) {
+        if (!users || !users.length) {
+            done = true;
+            callback();
+        }
+
         var added = 0;
         for (var i = 0; i < users.length; i++) {
             var friendInDb = false;
@@ -72,11 +84,13 @@ exports.getLastTracks = function(thisUser, callback) {
                         ++added;
                         if (added === users.length) {
                             // console.log("first");
+                            done = true;
                             return callback(null, result);
                         }
                     } else {
                         ++added;
                         if (added === users.length) {
+                            done = true;
                             return callback(null, result);
                         }
                     }
@@ -84,6 +98,7 @@ exports.getLastTracks = function(thisUser, callback) {
             } else {
                 ++added;
                 if (added === users.length) {
+                    done = true;
                     return callback(null, result);
                 }
             }
@@ -118,7 +133,11 @@ function getOneOnlineFriend(otherUser, callback) {
 exports.getLastTracksURL = function (req, res) {
     if (req.user) {
         exports.getLastTracks(req.user, function(err, data) {
-            return res.send(data);
+            if (!data) {
+                res.send([]);
+            } else {
+                return res.send(data);
+            }
         });
     } else {
         return res.send(['Error: No tracks received.']);

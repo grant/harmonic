@@ -150,11 +150,11 @@ $(function () {
     });
   }, 5000);
 
-  // var socket = io.connect();
-  // var idIsValid = false;
-  // socket.on('connected', function (data) {
-  //   socket.emit('identification', $('.accessToken').text());
-  // });
+  var socket = io.connect();
+  var idIsValid = false;
+  socket.on('connected', function (data) {
+    socket.emit('identification', $('.accessToken').text());
+  });
 
   // socket.on('identification', function (success) {
   //   idIsValid = success;
