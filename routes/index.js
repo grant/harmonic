@@ -16,6 +16,5 @@ exports.authError = function(req, res) {
 };
 
 exports.authSuccess = function(req, res) {
-  // Successful authentication, redirect home.;
   res.render('index', { success: 'true' });
 };
