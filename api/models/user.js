@@ -31,7 +31,7 @@ var userSchema = new Schema({
 	name: {
 		type: String
 	},
-	friends: [String],
+	friends: [],
 	photo: {
 		type: String
 	},
