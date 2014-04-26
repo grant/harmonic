@@ -97,7 +97,9 @@ app.get('/auth/facebook/callback',
 app.get('/auth/error', function(req, res) {
     res.render('index', { success: 'false' });
 });
+
 app.get('/nextsong', auth.requiresLogin, queue.nextSong);
+app.post('/recommendsong', auth.requiresLogin, queue.recommend);
 
 // Playlist endpoints
 app.post('/playlist', auth.requiresLogin, playlist.addSong);
