@@ -72,7 +72,7 @@ $(function () {
           img.addClass("current");
         }
         $(".underlay > .centerContent > .photo").html(img);
-        audioElem.volume = 100;
+        audioElem.volume = 1;
         audioElem.play();
       } else {
         playNext();

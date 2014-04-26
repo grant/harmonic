@@ -9,7 +9,7 @@ function getTracks(playlist, callback) {
         var tracks = [];
         body = JSON.parse(body);
         for (var i = 0; i < body.length; i++) {
-            // if (playlist.indexOf(body[i].uri) != -1) {
+            // if (playlist && playlist.indexOf(body[i].uri) !== -1) {
                 var track = { songUrl: body[i].uri, byName: '' };
                 tracks.push(track);
             // }
