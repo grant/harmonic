@@ -133,6 +133,10 @@ $(function () {
   });
 
   socket.on('updateFriends', function (data) {
-    console.log(data);
+      // $('.friends').html('');
+      // for(var i = 0; i < data.length; i++) {
+      //   var imageUrl = 'http://graph.facebook.com/' + data[i].fbId + '/' + picture
+      //   $('.friends').append('<div class="friend"><div class="slideArea"><div class="songName">' + data[i].songName + '</div><img src="' + data[i].albumImg + '" class="albumPhoto"></div><img src="' + imageUrl + '" class="profilePhoto"></div>');
+      // }
   });
 });
