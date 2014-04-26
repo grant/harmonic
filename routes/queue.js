@@ -4,7 +4,7 @@ var request = require('request');
 
 // calls soundcloud api and gets 50 songs
 function getTracks(playlist, callback) {
-    var url = "https://api.soundcloud.com/tracks.json?consumer_key=2aaf60470a34d42b0561e92b17ec7ce2&genres=trance&order=hotness&limit=50";
+    var url = "https://api.soundcloud.com/tracks.json?consumer_key=2aaf60470a34d42b0561e92b17ec7ce2&genres=trance,soul&order=hotness&limit=50";
     request(url, function(err, resp, body) {
         var tracks = [];
         body = JSON.parse(body);

@@ -19,7 +19,8 @@ function UIViewModel() {
 		onAlbumClick : [],
 		onPlaylistEnter : [],
 		onPlaylistLeave : [],
-		onClickPlaylistSong : []
+		onClickPlaylistSong : [],
+		onDropped : []
 	};
 
 	var LEFT = 37;
@@ -128,8 +129,14 @@ function UIViewModel() {
 		}, 500);
 	};
 
+	var dragAndDropped = function(target, src) {
+		for (var i = 0; i < bindings.onDropped.length; i++) {
+			bindings.onDropped[i](target, src);
+		}
+	};
+
 	var clickPlaylistSong = function(clicked) {
-		for (var i = 0; i < bindings.onRight.length; i++) {
+		for (var i = 0; i < bindings.onClickPlaylistSong.length; i++) {
 			bindings.onClickPlaylistSong[i](clicked);
 		}		
 		closePlaylist();
@@ -194,8 +201,11 @@ function UIViewModel() {
     	$('.dragging').html('');
     	if($('.playlistButton').hasClass('opened') && dragging != null) {
     		clickPlaylistSong(dragging);
+    	} else if ($('.friend.active-drop').length > 0 && dragging != null) {
+    		dragAndDropped($($('.friend.active-drop')[0]), dragging);
     	}
     	dragging = null;
+    	$('.friend').removeClass('active-drop');
     	$('.dragging').hide();
         return false;
     });
@@ -206,6 +216,16 @@ function UIViewModel() {
 			$('.playlistButton').toggleClass('opened');
 			closePlaylist();
 		}
+	});
+
+	$('.friend').mouseenter(function() {
+		if(dragging != null)
+			$(this).addClass('active-drop');
+	});
+
+
+	$('.friend').mouseleave(function() {
+		$(this).removeClass('active-drop');
 	});
 
 	if(Leap) {
@@ -258,6 +278,8 @@ function UIViewModel() {
 			bindings.onPlaylistEnter.push(passed.onPlaylistEnter);
 		if (typeof passed.onClickPlaylistSong != 'undefined')
 			bindings.onClickPlaylistSong.push(passed.onClickPlaylistSong);
+		if (typeof passed.onDropped != 'undefined')
+			bindings.onDropped.push(passed.onDropped);
 		//console.log(bindings);
 	}
 

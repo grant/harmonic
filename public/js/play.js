@@ -114,6 +114,11 @@ $(function () {
     playNext();
   }
 
+  function sendRecommendation(target, src) {
+    console.log(target);
+    console.log(src);
+  }
+
   ui.addBinds({
     onLeft : playNext,
     onRight : saveTrack,
@@ -121,7 +126,8 @@ $(function () {
     onClickPlaylistSong : function(clicked) {
       var url = clicked.data('url');
       playOne(url);
-    }
+    },
+    onDropped : sendRecommendation
   });
 
   // on page load, get and play something
