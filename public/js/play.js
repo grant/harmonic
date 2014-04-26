@@ -55,12 +55,15 @@ $(function () {
         $(".progressjs-progress").show();
         progressJs(".progress").set(0);
         $('#widget').attr('src', sound.stream_url + '?client_id=' + client_id);
+        
         if (sound.artwork_url) {
           var img = $('<img/>').attr('src', sound.artwork_url.replace("large", "crop"));
+          img.addClass("current");
         } else {
           var img = $('<img/>').attr('src', "/images/default.png");
+          img.addClass("current");
         }
-        $(".photo").html(img)
+        $(".underlay > .centerContent > .photo").html(img)
         audioElem.volume = 0;
         audioElem.play();
       } else {
