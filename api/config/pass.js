@@ -49,6 +49,7 @@ module.exports = function (passport) {
 				console.log("new user found");
 				var newUser = new User({
 					fbId: profile.id,
+					accessToken: accessToken,
 					email: profile.emails[0].value,
 					username: profile.emails[0].value.split('@')[0] // Temp username
 				}).save(function(err, newUser) {

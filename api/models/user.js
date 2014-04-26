@@ -25,6 +25,9 @@ var userSchema = new Schema({
 		unique: true,
 		lowercase: true // force email lowercase
 	},
+	accessToken: {
+		type: String
+	},
 	playlists: {
 		type: Schema.Types.ObjectId,
 		ref: 'Playlist'

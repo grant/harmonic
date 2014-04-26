@@ -36,6 +36,18 @@ app.configure(function(){
     app.set('views', __dirname + '/views');
     // we are using jade templating engine
     app.set('view engine', 'jade');
+    app.use(function(req, res, next) {
+        if (req.url != '/favicon.ico') {
+            return next();
+        } else {
+            res.status(200);
+            res.header('Content-Type', 'image/x-icon');
+            res.header('Cache-Control', 'max-age=4294880896');
+            res.end();
+        }
+    });
+    // every file <file> in /public is served at example.com/<file>
+    app.use(express.static(path.join(__dirname, 'public')));
     // watch network requests to express in realtime
     app.use(express.logger('dev'));
     // allows to read values in a submitted form
@@ -48,11 +60,8 @@ app.configure(function(){
         secret: 'YOLO',
         store: new RedisStore({ client: redis })
     }));
-    // every file <file> in /public is served at example.com/<file>
-    app.use(express.static(path.join(__dirname, 'public')));
     // initialize passport
     app.use(passport.initialize());
-    // for persistent session logins otherwise each request would need credentials
     app.use(passport.session());
     // invokes the routes' callbacks
     app.use(app.router);
