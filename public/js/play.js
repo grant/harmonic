@@ -57,9 +57,13 @@ $(function () {
     });
   }
 
-  $(".arrow").click(function() {
-    playNext();
+  ui.addBinds({
+  	onLeft : playNext,
+  	onRight : playNext
   });
+  // $(".arrow").click(function() {
+  //   playNext();
+  // });
 
 
   // on page load, get and play something
