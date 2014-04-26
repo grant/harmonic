@@ -14,6 +14,7 @@ Tech
 - Facebook API
 - Soundcloud API
 - Socket.IO
+- Leap Motion
 - Stylus
 - Jade
 - SVG
