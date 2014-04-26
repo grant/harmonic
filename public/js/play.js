@@ -42,7 +42,6 @@ $(function () {
       // empty queue, get more songs
       $.get( "/nextsong", function(data) {
         currentQueue = data.tracks;
-        console.log(currentQueue);
         // play the first song
         var url = currentQueue.pop().songUrl;
         playOne(url);
@@ -103,7 +102,6 @@ $(function () {
   }
 
   function saveTrack() {
-    console.log("test");
     $.post('/playlist', {'songURL' : currentURL}, function(data) {
       $('.likedSongs').html('');
       for(var i = 0; i < data.tracks.length; i++) {
@@ -141,10 +139,10 @@ $(function () {
   });
 
   socket.on('updateFriends', function (data) {
-      $('.friends').html('');
-      for(var i = 0; i < data.length; i++) {
-        var imageUrl = 'http://graph.facebook.com/' + data[i].fbId + '/picture';
-        $('.friends').append('<div class="friend"><div class="slideArea"><div class="songName">' + data[i].lastTrack + '</div><img src="' + data[i].artwork + '" class="albumPhoto"></div><img src="' + imageUrl + '" class="profilePhoto"></div>');
-      }
+    $('.friends').html('');
+    for(var i = 0; i < data.length; i++) {
+      var imageUrl = 'http://graph.facebook.com/' + data[i].fbId + '/picture';
+      $('.friends').append('<div class="friend"><div class="slideArea"><div class="songName">' + data[i].lastTrack + '</div><img src="' + data[i].artwork + '" class="albumPhoto"></div><img src="' + imageUrl + '" class="profilePhoto"></div>');
+    }
   });
 });

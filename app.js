@@ -49,33 +49,26 @@ io.sockets.on('connection', function (socket) {
   });
 
   // When the playlist is updated
-  // socket.on('updatePlaylist', function () {
-  //   // updatePlaylist
-  //   var thisUpdateTime = (new Date()).getTime();
-  //   if (thisUpdateTime - lastUpdateTime > 1000) {
-  //     lastUpdateTime = thisUpdateTime;
-  //     // Get the online users
-  //     user.getOnlineUsers(function (err, onlineUsers) {
-  //       for (var fbId in fbIdToUserData) {
-  //         var thisUserData = fbIdToUserData[fbId];
-  //         user.getLastTracks(fbId, onlineUsers, function (friendData) {
-  //           console.log(friendData);
-  //           thisUserData.socket.emit('updateFriends', friendData);
-  //         });
-  //       }
-  //     });
-  //   }
-  // });
+  socket.on('updatePlaylist', function () {
+    // updatePlaylist
+    var thisUpdateTime = (new Date()).getTime();
+    if (thisUpdateTime - lastUpdateTime > 1000) {
+      lastUpdateTime = thisUpdateTime;
+      for (var fbId in fbIdToUserData) {
+        var userData = fbIdToUserData[fbId];
+        user.getLastTracks(userData.user, function (err, friendData) {
+          console.log(friendData);
+          userData.socket.emit('updateFriends', friendData);
+        });
+      }
+    }
+  });
 
   socket.on('disconnect', function () {
     var userData = fbIdToUserData[thisSocketFbId];
     user.setOnline(userData.user._id, false);
   });
 });
-
-function getFriendData (fbId, onlineUsers) {
-  return [];
-}
 
 /*
     Configure environments
@@ -160,7 +153,7 @@ app.post('/playlist', auth.requiresLogin, playlist.addSong);
 app.del('/playlist', auth.requiresLogin, playlist.removeSong);
 app.post('/playlist/share', auth.requiresLogin, playlist.share);
 
-app.get('/allonlinefriends', auth.requiresLogin, user.getLastTracks);
+app.get('/allonlinefriends', auth.requiresLogin, user.getLastTracksURL);
 
 /*
     load helper methods for passport.js
