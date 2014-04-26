@@ -15,3 +15,41 @@ API
 `GET /auth/facebook`
 
 If user has previously logged in then returns the user profile else redirects to FB and then returns the user details as JSON.
+
+## Playlist interaction:
+
+### Add song
+
+`POST /playlist`
+
+(Requires authenticated user)
+
+Adds a song to the users playlist.
+
+Form needed:
+
+    songURL: url of a soundcloud song
+
+Returns
+
+	{
+		'response' : 'OK'
+		'user' : {...}
+	}
+
+### Remove song
+
+`DELETE /playlist`
+
+(Requires authenticated user)
+
+Form needed:
+
+    songURL: url of a soundcloud song
+
+Returns
+
+	{
+		'response' : 'OK'
+		'user' : {...}
+	}
