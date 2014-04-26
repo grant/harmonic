@@ -178,14 +178,20 @@ body
   z-index: 1;
 }
 
-.current {
-  opacity:1;
+@-webkit-keyframes fadeIn {
+  0% {opacity: 0;}
+  20% {opacity: 1;}
+  33% {opacity: 1;}
+  53% {opacity: 0;}
+  100% {opacity: 0;}
+}
 
--moz-transition: opacity 2s; /* Firefox 4 */
-
--webkit-transition: opacity 2s; /* Safari and Chrome */
-
--o-transition: opacity 2s;
-
-transition: opacity 2s;
+.artwork {
+  /*opacity: 0.5;*/
+  -webkit-animation-name: fadeIn;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-duration: 6s;
+  animation-name: fadeIn;
+  animation-iteration-count: infinite;
+  animation-duration: 6s;
 }
