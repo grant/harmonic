@@ -1,13 +1,22 @@
 .overlay
   pointer-events none
   z-index 1000
+  overlayPadding = 20px
+  .profileArea
+    top 0
+    right 0
+    padding overlayPadding
+    .name
+      color white
+    .photo
+      width 50px
+      height 50px
   .logo
     top 0
     left 0
-    padding 20px
+    padding overlayPadding
     width 120px
   ul.friends
-    position: absolute
     bottom 0
     width 100%
     height 100px
@@ -18,6 +27,8 @@
       background-color blue
       display: inline-block
       margin 0 10px
+  .profileArea, .logo, ul.friends
+    position absolute
 .underlay
   background-color gray
   text-align: center
