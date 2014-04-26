@@ -50,13 +50,11 @@ io.sockets.on('connection', function (socket) {
       lastUpdateTime = thisUpdateTime;
       // Get the online users
       user.getOnlineUsers(function (onlineUsers) {
-        console.log(onlineUsers);
-        console.log(socketToUserData);
-        console.log('-----');
-        // For each user, update the data
         for (var thisSocket in socketToUserData) {
           var thisUser = socketToUserData[thisSocket];
-          thisSocket.emit('updateFriends', user.getFriendData(thisUser.fbId, onlineUsers));
+          user.getLastTracks(thisUser.fbId, onlineUsers, function (friendData) {
+            thisSocket.emit('updateFriends', friendData);
+          });
         }
       });
     }
