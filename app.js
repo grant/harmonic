@@ -57,7 +57,6 @@ io.sockets.on('connection', function (socket) {
       for (var fbId in fbIdToUserData) {
         var userData = fbIdToUserData[fbId];
         user.getLastTracks(userData.user, function (err, friendData) {
-          console.log(friendData);
           userData.socket.emit('updateFriends', friendData);
         });
       }
