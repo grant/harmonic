@@ -93,9 +93,10 @@ $(function () {
   }
 
   function getTrackDetails(t, callback) {
-    url = t.replace("tracks/", "tracks.json?")+"&client_id="+client_id;
+    // url = t.replace("tracks/", "tracks.json?")+"&client_id="+client_id;
+    url = t+".json?consumer_key="+client_id;
     $.get(url, function(data) {
-      callback(data[0]);
+      callback(data);
     });
   }
 
