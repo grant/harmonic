@@ -124,6 +124,11 @@ $(function () {
     });
   }
 
+  function loadFriendSong(clicked) {
+    var url = clicked.data('url');
+    playOne(url);
+  }
+
   ui.addBinds({
     onLeft : playNext,
     onRight : saveTrack,
@@ -132,7 +137,8 @@ $(function () {
       var url = clicked.data('url');
       playOne(url);
     },
-    onDropped : sendRecommendation
+    onDropped : sendRecommendation,
+    onAlbumClick : loadFriendSong
   });
 
   // on page load, get and play something
@@ -158,7 +164,7 @@ $(function () {
     data = data.sort();
     for(var i = 0; i < data.length; i++) {
       var imageUrl = 'http://graph.facebook.com/' + data[i].fbId + '/picture';
-      $('.friends').append('<div class="friend" data-fbId="' + data[i].fbId + '"><div class="slideArea"><img src="' + data[i].artwork + '" class="albumPhoto"></div><img src="' + imageUrl + '" class="profilePhoto"></div>');
+      $('.friends').append('<div class="friend" data-fbId="' + data[i].fbId + '"><div class="slideArea"><img src="' + data[i].artwork + '" class="albumPhoto" data-url="' + data[i].lastTrack + '"></div><img src="' + imageUrl + '" class="profilePhoto"></div>');
     }
   });
 });

@@ -51,7 +51,6 @@ function UIViewModel() {
 
 	var albumClick = function(clicked) {
 		for (var i = 0; i < bindings.onAlbumClick.length; i++) {
-			//console.log(typeof bindings.onRight[i]);
 			bindings.onAlbumClick[i](clicked);
 		}
 	};
@@ -164,8 +163,9 @@ function UIViewModel() {
 		toTrash();
 	});
 
-	$('.albumPhoto').click(function() {
-		albumClick($(this));
+	$('body').on('click', '.albumPhoto', function() {
+		if (dragging == null)
+			albumClick($(this));
 	});
 
 	$('.right.arrow').click(function () {
