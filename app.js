@@ -51,19 +51,19 @@ io.sockets.on('connection', function (socket) {
   // When the playlist is updated
   socket.on('updatePlaylist', function () {
     // updatePlaylist
-    var thisUpdateTime = (new Date()).getTime();
-    if (thisUpdateTime - lastUpdateTime > 1000) {
-      lastUpdateTime = thisUpdateTime;
-      // Get the online users
-      user.getOnlineUsers(function (err, onlineUsers) {
-        for (var fbId in fbIdToUserData) {
-          var thisUserData = fbIdToUserData[fbId];
-          user.getLastTracks(fbId, onlineUsers, function (friendData) {
-            console.log(friendData);
-            thisUserData.socket.emit('updateFriends', friendData);
-          });
-        }
-      });
+    // var thisUpdateTime = (new Date()).getTime();
+    // if (thisUpdateTime - lastUpdateTime > 1000) {
+    //   lastUpdateTime = thisUpdateTime;
+    //   // Get the online users
+    //   user.getOnlineUsers(function (err, onlineUsers) {
+    //     for (var fbId in fbIdToUserData) {
+    //       var thisUserData = fbIdToUserData[fbId];
+    //       user.getLastTracks(fbId, onlineUsers, function (friendData) {
+    //         console.log(friendData);
+    //         thisUserData.socket.emit('updateFriends', friendData);
+    //       });
+    //     }
+    //   });
     }
   });
 
