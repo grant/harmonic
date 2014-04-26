@@ -1,0 +1,178 @@
+body {
+	padding: 50px 0;
+}
+
+body.homepage {
+	background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url("/images/bg3.jpg");
+	background-image: -moz-linear-gradient(top, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url("/images/bg3.jpg");
+	background-image: -o-linear-gradient(top, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url("/images/bg3.jpg");
+	background-image: -ms-linear-gradient(top, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url("/images/bg3.jpg");
+	background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.2)), to(rgba(0, 0, 0, 0.2))), url("/images/bg3.jpg");
+	background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url("/images/bg3.jpg");
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+hr.custom {
+	border: 0;
+	height: 1px;
+	background-image: -webkit-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0));
+	background-image: -moz-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0));
+	background-image: -o-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0));
+	background-image: -ms-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0));
+	background-image: linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0));
+}
+
+.form-group {
+	margin: 0px 1px;
+}
+
+/* Styling for Signup and Signin pages */
+body.signup-signin {
+	padding: 50px;
+	background-color: #eee;
+	height: 100%;
+}
+/* Styling for Signup and Signin pages */
+
+
+/* The page with dropdown signin modal */
+@media (min-width: 768px) {
+	.container {
+		max-width: 730px;
+	}
+}
+.jumbotron {
+	background-color: transparent!important;
+	text-align: center;
+	border-bottom: 1px solid #e5e5e5;
+	margin: 100px 30px 60px 30px!important;
+	color: white!important;
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 300;
+}
+
+.jumbotron h1 {
+	font-weight: 800;
+}
+
+.marketing,
+.footer {
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 400;
+	color: white;
+	padding-left: 15px;
+	padding-right: 15px;
+}
+.marketing {
+	margin: 40px 0;
+}
+.marketing p + h4 {
+	margin-top: 28px;
+}
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 768px) {
+	/* Remove the padding we set earlier */
+	.marketing,.footer {
+	padding-left: 0;
+	padding-right: 0;
+	}
+	/* Remove the bottom border on the jumbotron for visual effect */
+	.jumbotron {
+	padding: 30px !important;
+	border-bottom: 0;
+	}
+}
+/* The page with dropdown signin modal */
+
+
+.navbar-inverse.custom {
+	background-color: rgba(1, 2, 3, 0.7);
+}
+
+.navbar-brand, a.navbar-brand, .navbar-inverse .navbar-nav > li > a{
+	color: white!important;
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 400;
+}
+
+
+.signup-container {
+	max-width: 330px;
+	padding: 15px;
+	margin: 0 auto;
+}
+
+.form-signup .form-signup-heading,
+.form-signup .checkbox {
+	margin-bottom: 10px;
+}
+
+.form-signup .checkbox {
+	font-weight: normal;
+}
+
+.form-signup .form-control {
+	position: relative;
+	font-size: 16px;
+	height: auto;
+	padding: 10px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.form-signup .form-control:focus {
+	z-index: 2;
+}
+
+.form-signup input {
+	margin-bottom: 10px;
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+}
+
+.signin-option {
+	margin: 5px 0px;
+}
+
+
+
+input.ng-dirty.ng-invalid {
+	border: 1px solid red;
+}
+
+input.ng-dirty.ng-valid {
+	border: 1px solid green;
+}
+
+.error small.error {
+	display: block;
+	padding: 0.375em 0.25em;
+	margin-top: 0;
+	margin-bottom: 1em;
+	font-size: 0.75em;
+	font-weight: bold;
+	background: #c60f13;
+	color: white;
+	border-radius: 4px;
+}
+
+span.error, small.error {
+	display: block;
+	padding: 0.375em 0.25em;
+	margin-top: -1.3125em;
+	margin-bottom: 1em;
+	font-size: 0.75em;
+	font-weight: bold;
+	background: #c60f13;
+	color: white;
+}
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak],
+[x-ng-cloak], .ng-cloak, .x-ng-cloak, .ng-hide {
+	display: none !important;
+}

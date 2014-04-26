@@ -1,0 +1,57 @@
+// Homepage template
+
+doctype html
+html(ng-app)
+	include includes/head
+
+	body.homepage
+		div.container
+			body.dropdown-index
+				div.navbar.navbar-inverse.navbar-fixed-top.custom
+					div.container
+						div.navbar-header
+							a(href='/').navbar-brand #{appName}
+						div.navbar-collapse
+							ul.nav.navbar-nav.navbar-right
+								li
+									a(href="/signup") Sign up
+								li.dropdown
+									a.dropdown-toggle(href="/signin", data-toggle="dropdown") Sign in
+										b.caret
+									ul.dropdown-menu(style="padding: 15px;min-width: 250px;")
+										li
+											div.row
+												div.col-md-12
+													form.form#login-nav(name="signin", method="post", action="/signin")
+														div.form-group
+															input.form-control(type="text", placeholder="Username or Email", name="username", required=true, autofocus=true)
+														div.form-group
+															input.form-control(type="password", placeholder="Password", name="userpassword", required=true)
+														//div.checkbox
+														//	label Remember me
+														//		input(type="checkbox")
+														div.form-group
+															button.btn.btn-success.btn-block(type="submit") Sign in
+										li.divider
+										li
+											include users/oauth
+				div.jumbotron
+					h1 Humanize Music Discovery.
+					p.lead Tired of computers chosing your music? Get music recommendations from humans based on what you like, anonymously. Try PlaySink. 
+					button.btn.btn-success.btn-lg(type="button", onclick="location.href='/signup'") Sign up for free
+
+				div.row.marketing
+					div.col-lg-4
+						h2 Tell us what you like
+						//img.img-responsive(src="/images/place1.png")
+						p Select as many artists/genres as you like. Others will be able to see this, and recommend you music.
+					div.col-lg-4
+						h2 Discover tasteful music
+						//img.img-responsive(src="/images/place1.png")
+						p Based on your likes, others recommend you music, and build your playlist. You do the same for them.
+					div.col-lg-4
+						h2 Earn Karma for recommendations
+						//img.img-responsive(src="/images/place1.png")
+						p High quality recommendations with higher ratings earn higher karma. Compete to be in our top users list.
+
+	include includes/foot
