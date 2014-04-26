@@ -1,0 +1,1 @@
+stylus --watch ../ --compress ../private/styl/index.styl -o ../public/css/
