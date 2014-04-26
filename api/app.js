@@ -18,6 +18,7 @@ var express = require('express'),       // the main ssjs framework
     Configure environments
 */
 
+var redis;
 if (process.env.REDISTOGO_URL) {
     console.log("using reditogo");
     rtg   = require('url').parse(process.env.REDISTOGO_URL);
@@ -35,28 +36,24 @@ app.configure(function(){
     app.set('views', __dirname + '/views');
     // we are using jade templating engine
     app.set('view engine', 'jade');
-    // the favicon to use for our app
-    // app.use(express.favicon(path.join(__dirname, 'public/images/favicon.ico')));
     // watch network requests to express in realtime
     app.use(express.logger('dev'));
     // allows to read values in a submitted form
     app.use(express.bodyParser());
     // faux HTTP requests - PUT or DELETE
     app.use(express.methodOverride());
-    // every file <file> in /public is served at example.com/<file>
-    app.use(express.static(path.join(__dirname, 'public')));
     // sign the cookies, so we know if they have been changed
     app.use(express.cookieParser('keyboard cat'));
+    app.use(express.session({
+        secret: 'YOLO',
+        store: new RedisStore({ client: redis })
+    }));
+    // every file <file> in /public is served at example.com/<file>
+    app.use(express.static(path.join(__dirname, 'public')));
     // initialize passport
     app.use(passport.initialize());
     // for persistent session logins otherwise each request would need credentials
     app.use(passport.session());
-    // make variables available in all templates, provided that req.user is populated.
-    // app.use(function(req, res, next) {
-    //     res.locals.user = req.user;
-    //     res.locals.appName = constants.APP_NAME;
-    //     next();
-    // });
     // invokes the routes' callbacks
     app.use(app.router);
 });
