@@ -44,16 +44,18 @@ exports.getOnlineUsers = function (callback) {
 /*
 	Get friends that are logged in
  */
-exports.getLastTracks = function(userFBId, friends, callback) {
+exports.getLastTracks = function(req, res) {
+    var thisUser = req.user;
     var result = [];
 
-    User.findOne({fbId: userFBId}, function(err, thisUser) {
-        for (var i = 0; i < friends.length; i++) {
-            if (thisUser.friends.indexOf(friends[i]) != -1) {
+    User.find({online: true}, function(err, users) {
+        for (var i = 0; i < users.length; i++) {
+            var otherUser = users[i];
+            if (thisUser.friends.indexOf(otherUser) != -1) {
                 var onlineFriend = {};
-                onlineFriend.fbId = friends[i];
+                onlineFriend.fbId = otherUser;
                 // users are friends
-                User.findOne({fbId: friends[i]}, function(err, user) {
+                User.findOne({fbId: otherUser}, function(err, user) {
                     var lastTrack = user.playlist[user.playlist.length-1];
                     var artwork;
 
@@ -69,9 +71,9 @@ exports.getLastTracks = function(userFBId, friends, callback) {
                     });
                 });
                 result.push(onlineFriend);
-            }
+            }            
         }
     });
-    
-    callback(result);
+
+    res.send({data: result});
 }

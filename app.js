@@ -49,23 +49,23 @@ io.sockets.on('connection', function (socket) {
   });
 
   // When the playlist is updated
-  socket.on('updatePlaylist', function () {
-    // updatePlaylist
-    var thisUpdateTime = (new Date()).getTime();
-    if (thisUpdateTime - lastUpdateTime > 1000) {
-      lastUpdateTime = thisUpdateTime;
-      // Get the online users
-      user.getOnlineUsers(function (err, onlineUsers) {
-        for (var fbId in fbIdToUserData) {
-          var thisUserData = fbIdToUserData[fbId];
-          user.getLastTracks(fbId, onlineUsers, function (friendData) {
-            console.log(friendData);
-            thisUserData.socket.emit('updateFriends', friendData);
-          });
-        }
-      });
-    }
-  });
+  // socket.on('updatePlaylist', function () {
+  //   // updatePlaylist
+  //   var thisUpdateTime = (new Date()).getTime();
+  //   if (thisUpdateTime - lastUpdateTime > 1000) {
+  //     lastUpdateTime = thisUpdateTime;
+  //     // Get the online users
+  //     user.getOnlineUsers(function (err, onlineUsers) {
+  //       for (var fbId in fbIdToUserData) {
+  //         var thisUserData = fbIdToUserData[fbId];
+  //         user.getLastTracks(fbId, onlineUsers, function (friendData) {
+  //           console.log(friendData);
+  //           thisUserData.socket.emit('updateFriends', friendData);
+  //         });
+  //       }
+  //     });
+  //   }
+  // });
 
   socket.on('disconnect', function () {
     var userData = fbIdToUserData[thisSocketFbId];
@@ -160,7 +160,7 @@ app.post('/playlist', auth.requiresLogin, playlist.addSong);
 app.del('/playlist', auth.requiresLogin, playlist.removeSong);
 app.post('/playlist/share', auth.requiresLogin, playlist.share);
 
-app.post('/lasttracks', auth.requiresLogin, user.getLastTracks);
+app.get('/allonlinefriends', auth.requiresLogin, user.getLastTracks);
 
 /*
     load helper methods for passport.js
