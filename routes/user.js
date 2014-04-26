@@ -40,29 +40,34 @@ exports.getOnlineUsers = function (callback) {
 /*
 	Get friends that are logged in
  */
-exports.getLastTracks = function(req, res) {
-	var fbIds = req.body.fbIds;
+exports.getLastTracks = function(userFBId, friends, callback) {
     var result = [];
 
-    for (var i = 0; i < fbIds.length; i++) {
-        var thisUser = {fbId: fbIds[i]};
-        User.findOne({fbId: fbIds[i]}, function(err, user) {
-            var lastTrack = user.playlist[user.playlist.length-1];
-            var artwork;
+    User.findOne({fbId: userFBId}, function(err, thisUser) {
+        for (var i = 0; i < friends.length; i++) {
+            if (thisUser.friends.indexOf(friends[i]) != -1) {
+                var onlineFriend = {};
+                onlineFriend.fbId = friends[i];
+                // users are friends
+                User.findOne({fbId: friends[i]}, function(err, user) {
+                    var lastTrack = user.playlist[user.playlist.length-1];
+                    var artwork;
 
-            var url = "https://api.soundcloud.com/resolve.json?consumer_key=2aaf60470a34d42b0561e92b17ec7ce2&url=" + lastTrack;
-            request(url, function(err, resp, body) {
-                body = JSON.parse(body);
-                request(body.location, function(err, r, body) {
-                    body = JSON.parse(body);
-                    artwork = body.artwork_url;
-                    thisUser.lastTrack = lastTrack;
-                    thisUser.artwork = artwork;
+                    var url = "https://api.soundcloud.com/resolve.json?consumer_key=2aaf60470a34d42b0561e92b17ec7ce2&url=" + lastTrack;
+                    request(url, function(err, resp, body) {
+                        body = JSON.parse(body);
+                        request(body.location, function(err, r, body) {
+                            body = JSON.parse(body);
+                            artwork = body.artwork_url;
+                            onlineFriend.lastTrack = lastTrack;
+                            onlineFriend.artwork = artwork;
+                        });
+                    });
                 });
-            });
-        });
-        result.push(thisUser);
-    }
-
-    res.send(result);
+                result.push(onlineFriend);
+            }
+        }
+    });
+    
+    callback(result);
 }
