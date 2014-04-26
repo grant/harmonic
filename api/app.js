@@ -36,7 +36,7 @@ app.configure(function(){
     // we are using jade templating engine
     app.set('view engine', 'jade');
     // the favicon to use for our app
-    app.use(express.favicon(path.join(__dirname, 'public/images/favicon.ico')));
+    // app.use(express.favicon(path.join(__dirname, 'public/images/favicon.ico')));
     // watch network requests to express in realtime
     app.use(express.logger('dev'));
     // allows to read values in a submitted form
@@ -79,12 +79,14 @@ app.get('/logout', auth.requiresLogin, user.logout);
 // social signin
 // Passport redirects to a facebook login and we ask only for email
 app.get('/auth/facebook', passport.authenticate("facebook", {scope:'email'}));
-app.get('/auth/facebook/callback', // Authenticates it and sends to dashboard
-        passport.authenticate('facebook', function(req, res) { 
+app.get('/auth/facebook/callback',
+    passport.authenticate('facebook', {  }),
+        function(req, res) {
+            // Successful authentication, redirect home.
+            // res.redirect('/');
             console.log("logged in");
             console.log(req.user);
-        })
-);
+    });
 
 
 /*

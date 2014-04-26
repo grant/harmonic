@@ -15,8 +15,8 @@ module.exports = function (passport) {
  		received, this ID is used to find the user, which will be restored 
  		to req.user.
 	*/
-	passport.serializeUser(function (user, done) {
-		console.log('serializing: ' + user);
+	passport.serializeUser(function(user, done) {
+		console.log('serializeUser: ' + user._id)
 		done(null, user._id);
 	});
 
@@ -25,11 +25,11 @@ module.exports = function (passport) {
 		to the session.
 	*/
 	passport.deserializeUser(function(id, done) {
-		console.log('deserializing: ' + id);
-		User.findById(id, function (err, user) {
-			if (err) done(err);
-			done(null, user);
-		});
+		User.findById(id, function(err, user){
+			console.log(user)
+			if(!err) done(null, user);
+			else done(err, null)
+		})
 	});
 
 	// Logic for facebook strategy
@@ -38,13 +38,15 @@ module.exports = function (passport) {
 		clientSecret: Constants.Facebook.SECRET,
 		callbackURL: Constants.Facebook.CALLBACK
 	}, function(accessToken, refreshToken, profile, done) {
-		console.log('facebook authentication for ')
-		console.log(profile);
+		// console.log('facebook authentication ')
+		// console.log(profile);
 		User.findOne({$or: [{fbId : profile.id }, {email: profile.emails[0].value}]}, function(err, oldUser) {
 			if (oldUser) {
+				console.log("old user detected");
 				return done(null, oldUser);
 			} else {
 				if (err) return done(err);
+				console.log("new user found");
 				var newUser = new User({
 					fbId: profile.id,
 					email: profile.emails[0].value,
