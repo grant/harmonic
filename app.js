@@ -19,34 +19,34 @@ var express = require('express'),       // the main ssjs framework
 var server = require('http').createServer(app);
 var io = require('socket.io').listen(server);
 
-// io.configure('production', function(){
-//   io.enable('browser client minification');  // send minified client
-//   io.enable('browser client etag');          // apply etag caching logic based on version number
-//   io.enable('browser client gzip');          // gzip the file
-//   io.set('log level', 1);                    // reduce logging
-//   // enable all transports (optional if you want flashsocket)
-//   io.set('transports', [ 'websocket', 'flashsocket', 'htmlfile', 'xhr-polling', 'jsonp-polling']);
-// });
+io.configure('production', function(){
+  io.enable('browser client minification');  // send minified client
+  io.enable('browser client etag');          // apply etag caching logic based on version number
+  io.enable('browser client gzip');          // gzip the file
+  io.set('log level', 1);                    // reduce logging
+  // enable all transports (optional if you want flashsocket)
+  io.set('transports', [ 'websocket', 'flashsocket', 'htmlfile', 'xhr-polling', 'jsonp-polling']);
+});
 
-// var fbIdToUserData = {};
-// var lastUpdateTime = (new Date()).getTime();
-// io.sockets.on('connection', function (socket) {
-//   var thisSocketFbId;
-//   socket.emit('connected');
+var fbIdToUserData = {};
+var lastUpdateTime = (new Date()).getTime();
+io.sockets.on('connection', function (socket) {
+  var thisSocketFbId;
+  socket.emit('connected');
 
-//   // Sets up the user data
-//   socket.on('identification', function (accessToken) {
-//     user.getUserFromToken(accessToken, function (err, thisUser) {
-//       fbIdToUserData[thisUser.fbId] = {
-//         socket: socket,
-//         user: thisUser
-//       };
-//       thisSocketFbId = thisUser.fbId;
-//       user.setOnline(thisUser._id, true, function () {
-//         socket.emit('identification', true);
-//       });
-//     });
-//   });
+  // Sets up the user data
+  socket.on('identification', function (accessToken) {
+    user.getUserFromToken(accessToken, function (err, thisUser) {
+      fbIdToUserData[thisUser.fbId] = {
+        socket: socket,
+        user: thisUser
+      };
+      thisSocketFbId = thisUser.fbId;
+      user.setOnline(thisUser._id, true, function () {
+        socket.emit('identification', true);
+      });
+    });
+  });
 
 //   // When the playlist is updated
 //   socket.on('updatePlaylist', function () {
@@ -63,13 +63,13 @@ var io = require('socket.io').listen(server);
 //     }
 //   });
 
-//   socket.on('disconnect', function () {
-//     var userData = fbIdToUserData[thisSocketFbId];
-//     if (userData) {
-//       user.setOnline(userData.user._id, false);
-//     }
-//   });
-// });
+  socket.on('disconnect', function () {
+    var userData = fbIdToUserData[thisSocketFbId];
+    if (userData) {
+      user.setOnline(userData.user._id, false);
+    }
+  });
+});
 
 /*
     Configure environments
