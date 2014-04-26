@@ -10,12 +10,12 @@ audio
   overlayPadding = 20px
   .profileArea
     top 0
-    right 0
+    right 10px
     padding overlayPadding
     .name
       color white
       float left
-      margin-right 10px
+      margin-right 12px
       margin-top 15px
     .photo
       width 50px
@@ -23,14 +23,21 @@ audio
       float right
       border solid #fffcc4 2px
   .playlistArea
-    top 0
-    right 0
+    pointer-events auto
+    position absolute
+    top 65px
+    right 10px
     padding overlayPadding
     .playlistButton
+      &:hover
+        opacity 0.5
+      transition opacity 0.2s linear
       color white
+      cursor pointer
+      background-color blue
+      padding 7px
+      border-radius 5px
       float left
-      margin-right 10px
-      margin-top 15px
   .logo
     top 0
     left 0
