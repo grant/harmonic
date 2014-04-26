@@ -35,10 +35,8 @@ var userSchema = new Schema({
 	photo: {
 		type: String
 	},
-	playlists: {
-		type: Schema.Types.ObjectId,
-		ref: 'Playlist'
-	},
+	queue: [String],
+	playlist: [String],
 	fbId: String
 });
 

@@ -4,8 +4,11 @@
 
 var express = require('express'),       // the main ssjs framework
     routes = require('./routes'),       // by default, brings in routes/index.js
-    user = require('./routes/user'),  // all login for admin panel
+    queue = require('./routes/queue'),
+    // user = require('./routes/user'),  // all login for admin panel
     // dashboard = require('./routes/dashboard'), // the main app's page
+    user = require('./routes/user'),
+    playlist = require('./routes/playlist'),
     path = require('path'),             // for pathn manipulation
     db = require('./config/db'),        // database connection
     passport = require('passport'),     // for user authentication
@@ -93,6 +96,13 @@ app.get('/auth/facebook/callback',
             res.send(req.user)
             // console.log(req.user);
     });
+
+app.get('/nextsong', auth.requiresLogin, queue.nextSong);
+
+// Playlist endpoints
+app.post('/playlist', auth.requiresLogin, playlist.addSong);
+app.del('/playlist', auth.requiresLogin, playlist.removeSong);
+app.post('/playlist/share', auth.requiresLogin, playlist.share);
 
 
 /*
