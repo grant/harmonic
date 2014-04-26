@@ -4,6 +4,9 @@ block content
   .flyAway
   .overlay
     img.logo(src='/images/logo.svg')
+    .profileArea
+      img.photo
+      .name
     ul.friends
       .friend
         span.songName Testing
@@ -24,3 +27,5 @@ block content
 block js
   script(src='/socket.io/socket.io.js')
   script(src="/js/play.js")
+  script(src="http://connect.soundcloud.com/sdk.js")
+  script(src="http://w.soundcloud.com/player/api.js")

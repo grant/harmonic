@@ -3,6 +3,9 @@ $(function () {
   // initUI();
 
   var client_id = '2aaf60470a34d42b0561e92b17ec7ce2';
+  var starttimeoffset = 30; // what time do we skip to?
+  var duration = 20; // duration of track
+
   var currentQueue = []; // holds the queue of songs
   var audioElem = $("#widget")[0];
 
@@ -11,9 +14,18 @@ $(function () {
     client_id: client_id
   });
 
+  audioElem.addEventListener("canplay", function() { 
+    audioElem.currentTime = starttimeoffset;
+  }, true);
+
+  audioElem.addEventListener("timeupdate", function() { 
+    if (audioElem.currentTime >= starttimeoffset + duration) {
+      playNext();
+    }
+  }, true);
+
   // on page load, get and play something
   playNext();
-
 
   function playNext() {
     // update the audio tag source
