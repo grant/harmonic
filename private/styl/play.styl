@@ -25,7 +25,11 @@ body
     height 100px
     text-align center
     .friend
-      position: relative
+      &:hover
+        .slideArea
+          bottom 100px
+      position relative
+      pointer-events auto
       width 100px
       height 100px
       background-color blue
@@ -33,7 +37,7 @@ body
       margin 0 10px
       .slideArea
         position absolute
-        bottom 0
+        bottom 0px
         .songName
           text-align: center
           color #fffcc4
@@ -60,7 +64,7 @@ body
     margin 0 auto
     arrowWidth = 60px
     .arrow
-      &hover
+      &:hover
         opacity 0.5
       transition opacity 0.2s linear
       position relative
