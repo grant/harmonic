@@ -161,6 +161,7 @@ $(function () {
   }, 5000);
 
   socket.on('updateFriends', function (data) {
+    console.log('updating friend bar');
     data = data.sort(function (a, b) {
       return parseInt(a.fbId, 10) - parseInt(b.fbId, 10);
     });
