@@ -4,7 +4,7 @@ $(function () {
 
   var client_id = '2aaf60470a34d42b0561e92b17ec7ce2';
   var starttimeoffset = 30; // what time do we skip to?
-  var duration = 1; // duration of track
+  var duration = 20; // duration of track
 
   var currentQueue = []; // holds the queue of songs
   var audioElem = $("#widget")[0];
