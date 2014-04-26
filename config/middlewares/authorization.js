@@ -5,10 +5,6 @@ exports.requiresLogin = function (req, res, next) {
 	if (req.isAuthenticated()) {
         return next();
     } else {
-        req.session.redirect_to = req.path;
-        res.redirect('/signin');
+        res.redirect('/');
     }
-	
-	//req.flash('error', "Sign in before access that.");
-	
 }
