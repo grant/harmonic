@@ -115,8 +115,12 @@ $(function () {
   }
 
   function sendRecommendation(target, src) {
-    console.log(target);
-    console.log(src);
+    var songUri = src.data('url');
+    var fId = target.data('fbid');
+    console.log('RECOMMEND TO ' + songUri + ', ' + fId);
+    $.post('/recommendsong', {'songURL' : songUri, 'toUserFb' : fId}, function(data) {
+      alert("Recommended song successfully!");
+    });
   }
 
   ui.addBinds({
@@ -150,9 +154,10 @@ $(function () {
 
   socket.on('updateFriends', function (data) {
     $('.friends').html('');
+    data = data.sort();
     for(var i = 0; i < data.length; i++) {
       var imageUrl = 'http://graph.facebook.com/' + data[i].fbId + '/picture';
-      $('.friends').append('<div class="friend" data-fbId="' + data[i].fbId + '"><div class="slideArea"><div class="songName">' + data[i].lastTrack + '</div><img src="' + data[i].artwork + '" class="albumPhoto"></div><img src="' + imageUrl + '" class="profilePhoto"></div>');
+      $('.friends').append('<div class="friend" data-fbId="' + data[i].fbId + '"><div class="slideArea"><img src="' + data[i].artwork + '" class="albumPhoto"></div><img src="' + imageUrl + '" class="profilePhoto"></div>');
     }
   });
 });
