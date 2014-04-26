@@ -14,7 +14,7 @@ function getTracks(playlist, callback) {
                 tracks.push(track);
             // }
         }
-        callback(tracks);
+        callback(tracks.sort(function() { return 0.5 - Math.random(); }));
     });
 }
 
