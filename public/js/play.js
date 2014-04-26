@@ -27,7 +27,8 @@ $(function () {
     if (curTime >= starttimeoffset + duration) {
       $(".photo").addClass("stopped");
       $(".progressjs-progress").hide();
-      $('.wave > animate').attr('dur', '0s');
+        $('#animated-1').attr('dur', '50s');
+        $('#animated-2').attr('dur', '30s');
       // playNext();
     }
     var diff = curTime - starttimeoffset;
@@ -56,7 +57,8 @@ $(function () {
     SC.get(url, {}, function(sound, error) {
       if (sound.stream_url) {
         $(".photo").removeClass("stopped");
-        $('.wave > animate').attr('dur', '0.5s');
+        $('#animated-1').attr('dur', '3s');
+        $('#animated-2').attr('dur', '1.8s');
         $(".progressjs-progress").show();
         progressJs(".progress").set(0);
         $('#widget').attr('src', sound.stream_url + '?client_id=' + client_id);
@@ -81,8 +83,19 @@ $(function () {
     $.get('/playlist', function(data) {
       $('.likedSongs').html('');
       for(var i = 0; i < data.tracks.length; i++) {
-        $('.likedSongs').append('<li class="song" data-url="' + data.tracks[i] + '"><span class="name">' + data.tracks[i] + '</span><img src="/images/default.png" class="albumPhoto" /></li>');
+        // var track = getTrackDetails(data.tracks[i]);
+        getTrackDetails(data.tracks[i], function(track) {
+          var image = track.artwork_url || '/images/default.png';
+          $('.likedSongs').append('<li class="song" data-url="' + track.uri + '"><span class="name">' + track.title + '</span><img src="' + image + '" class="albumPhoto" /></li>');
+        });
       }
+    });
+  }
+
+  function getTrackDetails(t, callback) {
+    url = t.replace("tracks/", "tracks.json?")+"&client_id="+client_id;
+    $.get(url, function(data) {
+      callback(data[0]);
     });
   }
 
@@ -91,7 +104,10 @@ $(function () {
     $.post('/playlist', {'songURL' : currentURL}, function(data) {
       $('.likedSongs').html('');
       for(var i = 0; i < data.tracks.length; i++) {
-        $('.likedSongs').append('<li class="song" data-url="' +data.tracks[i] + '"><span class="name">' + data.tracks[i] + '</span><img src="/images/default.png" class="albumPhoto" /></li>');
+        getTrackDetails(data.tracks[i], function(track) {
+          var image = track.artwork_url || '/images/default.png';
+          $('.likedSongs').append('<li class="song" data-url="' + track.uri + '"><span class="name">' + track.title + '</span><img src="' + image + '" class="albumPhoto" /></li>');
+        });
       }
     });
     playNext();
@@ -114,6 +130,7 @@ $(function () {
   socket.on('connected', function (data) {
     socket.emit('setupId', accessToken);
     socket.emit('updatePlaylist');
+    socket.emit('identification', $('.accessToken').text());
   });
 
   socket.on('updateFriends', function (data) {
