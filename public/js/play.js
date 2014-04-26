@@ -29,8 +29,8 @@ $(function () {
       $(".progressjs-progress").hide();
       $('#animated-1').attr('dur', '50s');
       $('#animated-2').attr('dur', '30s');
-      audioElem.pause();
-      // playNext();
+      // audioElem.pause();
+      playNext();
     }
     var diff = curTime - starttimeoffset;
     progressJs(".progress").set((diff/duration)*100);
