@@ -1,8 +1,57 @@
 .overlay
-  color black
+  pointer-events none
+  z-index 1000
+  .logo
+    top 0
+    left 0
+    padding 20px
+    width 120px
+  ul.friends
+    bottom 0
+    text-align center
 .underlay
   background-color gray
+  text-align: center
+  > .centerContent
+    background-color darkGray
+    display: inline-block
+    width 600px
+    height 100%
+    margin 0 auto
+    arrowWidth = 60px
+    .arrow
+      position relative
+      height 100%
+      width arrowWidth
+      color beige
+      charWidth = 25px
+      font-size charWidth
+      charPadding = 10px
+      &.left
+        background-color red
+        float left
+        .char
+          padding-left arrowWidth - charPadding - charWidth
+          text-align right
+      &.right
+        background-color blue
+        float right
+        .char
+          padding-left charPadding
+          text-align left
+      .char
+        position absolute
+        top 50%
+        height 10px
+        margin-top -5px
+    .photo
+      margin 0 auto
+      photoSize = 400px
+      width photoSize
+      height photoSize
+      background-color blue
+      margin-top 100px
 .overlay, .underlay
   height 100%
   width 100%
-  position: absolute
+  position absolute
