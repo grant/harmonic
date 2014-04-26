@@ -18,7 +18,8 @@ function UIViewModel() {
 		onFlyComplete : [],
 		onAlbumClick : [],
 		onPlaylistEnter : [],
-		onPlaylistLeave : []
+		onPlaylistLeave : [],
+		onClickPlaylistSong : []
 	};
 
 	var LEFT = 37;
@@ -90,17 +91,16 @@ function UIViewModel() {
 
 	var toTrash = function() {
 		prepFly();
-		for (var i = 0; i < bindings.onRight.length; i++) {
-			//console.log(typeof bindings.onRight[i]);
-			bindings.onRight[i]();
+		for (var i = 0; i < bindings.onLeft.length; i++) {
+			bindings.onLeft[i]();
 		}
 		flyLeft();
 	};
 
 	var toPlaylist = function() {
 		prepFly();
-		for (var i = 0; i < bindings.onLeft.length; i++) {
-			bindings.onLeft[i]();
+		for (var i = 0; i < bindings.onRight.length; i++) {
+			bindings.onRight[i]();
 		}
 		flyRight();
 	};
@@ -111,7 +111,7 @@ function UIViewModel() {
 		}
 		$('.playlistBody').show();
 		$('.playlistButton').animate({
-			width: "300px"
+			width: "400px"
 		}, 500, completeFly);
 	};
 
@@ -123,6 +123,12 @@ function UIViewModel() {
 		 $('.playlistButton').animate({
 		 	width: oldPlaylistButtonWidth + 'px'
 		}, 500);
+	};
+
+	var clickPlaylistSong = function(clicked) {
+		for (var i = 0; i < bindings.onRight.length; i++) {
+			bindings.onClickPlaylistSong[i](clicked);
+		}		
 	};
 
 	/**
@@ -154,13 +160,24 @@ function UIViewModel() {
 		toPlaylist();
 	});
 
-	$('.playlistButton').click(function() {
+	$('.playlistButton').mouseenter(function() {
 		$(this).stop();
-		$('.playlistButton').toggleClass('opened')
-		if(!$('.playlistButton').hasClass('opened'))
-			closePlaylist();
-		else
+		if(!$('.playlistButton').hasClass('opened')) {
+			$('.playlistButton').toggleClass('opened');
 			popOpenPlaylist();
+		}
+	});
+
+	$('.playlistButton').mouseleave(function() {
+		$(this).stop();
+		if($('.playlistButton').hasClass('opened')) {
+			$('.playlistButton').toggleClass('opened');
+			closePlaylist();
+		}
+	});
+
+	$('body').on('click','.song', function() {
+		clickPlaylistSong($(this));
 	});
 
 	/**
@@ -186,6 +203,8 @@ function UIViewModel() {
 			bindings.onPlaylistLeave.push(passed.onPlaylistLeave);
 		if (typeof passed.onPlaylistEnter != 'undefined')
 			bindings.onPlaylistEnter.push(passed.onPlaylistEnter);
+		if (typeof passed.onClickPlaylistSong != 'undefined')
+			bindings.onClickPlaylistSong.push(passed.onClickPlaylistSong);
 		//console.log(bindings);
 	}
 

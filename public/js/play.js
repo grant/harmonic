@@ -6,6 +6,8 @@ $(function () {
   var starttimeoffset = 30; // what time do we skip to?
   var duration = 20; // duration of track
 
+  var currentURL = "";
+
   var currentQueue = []; // holds the queue of songs
   var audioElem = $("#widget")[0];
 
@@ -49,6 +51,7 @@ $(function () {
   }
 
   function playOne(url) {
+    currentURL = url;
     SC.get(url, {}, function(sound, error) {
       if (sound.stream_url) {
         $(".photo").removeClass("stopped");
@@ -72,9 +75,34 @@ $(function () {
     });
   }
 
+  function updateTrackList() {
+    $.get('/playlist', function(data) {
+      $('.likedSongs').html('');
+      for(var i = 0; i < data.tracks.length; i++) {
+        $('.likedSongs').append('<li class="song" data-url="' + data.tracks[i] + '"><span class="name">' + data.tracks[i] + '</span><img src="/images/default.png" class="albumPhoto" /></li>');
+      }
+    });
+  }
+
+  function saveTrack() {
+    console.log("test");
+    $.post('/playlist', {'songURL' : currentURL}, function(data) {
+      $('.likedSongs').html('');
+      for(var i = 0; i < data.tracks.length; i++) {
+        $('.likedSongs').append('<li class="song" data-url="' +data.tracks[i] + '"><span class="name">' + data.tracks[i] + '</span><img src="/images/default.png" class="albumPhoto" /></li>');
+      }
+    });
+    playNext();
+  }
+
   ui.addBinds({
   	onLeft : playNext,
-  	onRight : playNext
+  	onRight : saveTrack,
+    onPlaylistEnter : updateTrackList,
+    onClickPlaylistSong : function(clicked) {
+      var url = clicked.data('url');
+      playOne(url);
+    }
   });
 
   // on page load, get and play something
