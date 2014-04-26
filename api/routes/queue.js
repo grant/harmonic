@@ -6,5 +6,11 @@ var User = require('./../models/user');
 // and build that list, and then pop the value
 exports.nextSong = function(req, res) {
     var user = req.user;
-
+    User.findOne({id: user.id}, function(err, user) {
+        if (user.queue.length == 0) {
+            // call soundcloud api and fill it
+            
+        }
+        // pop the song and return the url
+    });
 }

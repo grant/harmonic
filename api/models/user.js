@@ -36,7 +36,7 @@ var userSchema = new Schema({
 		type: String
 	},
 	queue: [String],
-	playlist: [String]
+	playlist: [String],
 	fbId: String
 });
 
