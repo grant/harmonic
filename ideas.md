@@ -6,7 +6,15 @@
 - hipster mode: friends songs didn't like
 
 - swipe a song to a friend
+
+Discover Mode:
+
+
+Fiend Mode:
 - see what friends are playing
+
+Hipster Mode:
+- Show songs that my friends do not like
 
 ## Demo ideas
 
