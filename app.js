@@ -94,8 +94,9 @@ app.get('/auth/facebook/callback',
         function(req, res) {
             // Successful authentication, redirect home.;
             // console.log("logged in--------");
-            res.send(req.user)
+            //res.send(req.user)
             // console.log(req.user);
+            res.redirect('/');
     });
 
 app.get('/nextsong', auth.requiresLogin, queue.nextSong);
