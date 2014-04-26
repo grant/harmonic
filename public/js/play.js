@@ -24,10 +24,7 @@ $(function () {
     }
   }, true);
 
-  // on page load, get and play something
-  playNext();
-
-  function playNext() {
+  var playNext = function() {
     // update the audio tag source
     if (currentQueue.length == 0) {
       // empty queue, get more songs
@@ -45,14 +42,22 @@ $(function () {
 
   function playOne(url) {
     SC.get(url, {}, function(sound, error) {
-      $('#widget').attr('src', sound.stream_url + '?client_id=' + client_id);
-      audioElem.play();
+      if (sound.stream_url) {
+        $('#widget').attr('src', sound.stream_url + '?client_id=' + client_id);
+        audioElem.play();
+      } else {
+        playNext();
+      }
     });
   }
 
   $(".arrow").click(function() {
     playNext();
   });
+
+
+  // on page load, get and play something
+  playNext();
 
 var socket = io.connect();
 console.log('playing song');
