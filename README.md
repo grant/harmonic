@@ -1,10 +1,21 @@
-harmonic
+Harmonic
 ========
 
-A music discovery app.
+![Harmonic](https://github.com/grant/harmonic/raw/master/cover.png)
 
-See it live at [http://harmonic.herokuapp.com/](http://harmonic.herokuapp.com/)
+Harmonic is a faster way of discover music with your social network. Swipe right to add a song to your playlist, left to discard it. Find out what your friends are listening to and share your music discoveries with them instantly.
 
+See it live at [goharmonic.com](http://goharmonic.com/)
+
+Won **1st Place** at Facebook's Northwestern Regional Hackathon 2014.
+
+Built by
+========
+
+- [aaronnech](http://github.com/aaronnech)
+- [grant](http://github.com/grant)
+- [karan](http://github.com/karan)
+- [rdrapeau](http://github.com/rdrapeau)
 
 Tech
 ====
