@@ -144,11 +144,11 @@ $(function () {
   // on page load, get and play something
   playNext();
 
-  setInterval(function () {
-    $.getJSON('/allonlinefriends', function (data) {
-      updateFriends(data);
-    });
-  }, 5000);
+  // setInterval(function () {
+  //   $.getJSON('/allonlinefriends', function (data) {
+  //     updateFriends(data);
+  //   });
+  // }, 5000);
 
   var socket = io.connect();
   var idIsValid = false;
@@ -156,19 +156,19 @@ $(function () {
     socket.emit('identification', $('.accessToken').text());
   });
 
-  // socket.on('identification', function (success) {
-  //   idIsValid = success;
-  //   socket.emit('updatePlaylist');
-  // });
+  socket.on('identification', function (success) {
+    idIsValid = success;
+    socket.emit('updatePlaylist');
+  });
 
-  // setInterval(function () {
-  //   socket.emit('updatePlaylist');
-  //   console.log('updating playlist');
-  // }, 5000);
+  setInterval(function () {
+    socket.emit('updatePlaylist');
+    console.log('updating playlist');
+  }, 5000);
 
-  // socket.on('updateFriends', function (data) {
-  //   updateFriends(data);
-  // });
+  socket.on('updateFriends', function (data) {
+    updateFriends(data);
+  });
 
   function updateFriends (data) {
     console.log('updating friend bar');

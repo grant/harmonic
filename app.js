@@ -28,7 +28,6 @@ io.configure('production', function(){
   io.set('transports', [ 'websocket', 'flashsocket', 'htmlfile', 'xhr-polling', 'jsonp-polling']);
 });
 
-var fbIdToUserData = {};
 var lastUpdateTime = (new Date()).getTime();
 io.sockets.on('connection', function (socket) {
   var thisSocketFbId;
@@ -37,10 +36,7 @@ io.sockets.on('connection', function (socket) {
   // Sets up the user data
   socket.on('identification', function (accessToken) {
     user.getUserFromToken(accessToken, function (err, thisUser) {
-      fbIdToUserData[thisUser.fbId] = {
-        socket: socket,
-        user: thisUser
-      };
+      socket.user = thisUser;
       thisSocketFbId = thisUser.fbId;
       user.setOnline(thisUser._id, true, function () {
         socket.emit('identification', true);
@@ -48,25 +44,25 @@ io.sockets.on('connection', function (socket) {
     });
   });
 
-//   // When the playlist is updated
-//   socket.on('updatePlaylist', function () {
-//     // updatePlaylist
-//     var thisUpdateTime = (new Date()).getTime();
-//     if (thisUpdateTime - lastUpdateTime > 1000) {
-//       lastUpdateTime = thisUpdateTime;
-//       for (var fbId in fbIdToUserData) {
-//         var userData = fbIdToUserData[fbId];
-//         user.getLastTracks(userData.user, function (err, friendData) {
-//           userData.socket.emit('updateFriends', friendData);
-//         });
-//       }
-//     }
-//   });
+  // When the playlist is updated
+  socket.on('updatePlaylist', function () {
+    // updatePlaylist
+    var thisUpdateTime = (new Date()).getTime();
+    if (thisUpdateTime - lastUpdateTime > 1000) {
+      lastUpdateTime = thisUpdateTime;
+      for (var i in io.sockets.clients()) {
+        var userData = io.sockets.clients()[i].user;
+        user.getLastTracks(userData, function (err, friendData) {
+          socket.emit('updateFriends', friendData);
+        });
+      }
+    }
+  });
 
   socket.on('disconnect', function () {
-    var userData = fbIdToUserData[thisSocketFbId];
+    var userData = socket.user;
     if (userData) {
-      user.setOnline(userData.user._id, false);
+      user.setOnline(userData._id, false);
     }
   });
 });
