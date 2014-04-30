@@ -1,7 +1,3 @@
-/*
-    Module dependencies
-*/
-
 var express = require('express'),       // the main ssjs framework
     routes = require('./routes'),       // by default, brings in routes/index.js
     queue = require('./routes/queue'),
@@ -158,9 +154,7 @@ app.get('/allonlinefriends', auth.requiresLogin, user.getLastTracksURL);
 */
 require('./config/pass.js')(passport);
 
-
 // Creates the server and has socets listen to it
-// app.listen(app.get('port'), { log: false});
 server.listen(app.get('port'));
 
 console.log('Express server listening on port ' + app.get('port'));
